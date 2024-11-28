@@ -85,20 +85,23 @@
         <form name="input">
 
           <!-- Units -->
-          <div class="row m-1">
-            <div class="col m-3">
-              <label class="label">Conversion</label>
-              <div class="select">
-                <select id="imp_unit">
+          <div class="row mt-5 justify-content-center">
+            <div class="col-3">
+              <div class="input-group mb-2">
+                <span class="input-group-text inputGroupmw">Conversion</span>
+                <select class="form-select" id="imp_unit"
+                  onchange="change_imp()" autocomplete="off">
                   <option value="se">Single-Ended</option>
                   <option value="diff" selected>Differential</option>
                 </select>
               </div>
             </div>
-            <div class="col m-3">
-              <label class="label">Frequency Unit</label>
-              <div class="select">
-                <select id="f_unit">
+            <div class="col-3">
+              <div class="input-group mb-2">
+                <span class="input-group-text inputGroupmw">Frequency
+                  Unit</span>
+                <select class="form-select" id="f_unit"
+                  onchange="change_unit()" autocomplete="off">
                   <option value="tera">THz</option>
                   <option value="giga" selected>GHz</option>
                   <option value="mega">MHz</option>
@@ -106,122 +109,131 @@
                 </select>
               </div>
             </div>
-            <div class="col m-3">
-              <label class="label">Cap Unit</label>
-              <div class="select">
-                <select id="c_unit">
-                  <option value="milli">Milli</option>
-                  <option value="micro">Micro</option>
-                  <option value="nano">Nano</option>
-                  <option value="pico">Pico</option>
-                  <option value="femto" selected>Femto</option>
+            <div class="col-2">
+              <div class="input-group mb-2">
+                <span class="input-group-text inputGroupmw">Cap</span>
+                <select class="form-select" id="c_unit"
+                  onchange="change_unit()" autocomplete="off">
+                  <option value="milli">m</option>
+                  <option value="micro">μ</option>
+                  <option value="nano">n</option>
+                  <option value="pico">p</option>
+                  <option value="femto" selected>f</option>
                 </select>
               </div>
             </div>
-            <div class="col m-3">
-              <label class="label">Ind Unit</label>
-              <div class="select">
-                <select id="l_unit">
-                  <option value="milli">Milli</option>
-                  <option value="micro">Micro</option>
-                  <option value="nano">Nano</option>
-                  <option value="pico" selected>Pico</option>
-                  <option value="femto">Femto</option>
+            <div class="col-2">
+              <div class="input-group mb-2">
+                <span class="input-group-text inputGroupmw">Ind</span>
+                <select class="form-select" id="l_unit"
+                  onchange="change_unit()" autocomplete="off">
+                  <option value="milli">m</option>
+                  <option value="micro">μ</option>
+                  <option value="nano">n</option>
+                  <option value="pico" selected>p</option>
+                  <option value="femto">f</option>
                 </select>
               </div>
             </div>
-            <div class="col m-3">
-              <label class="label">Matching</label>
-              <div class="select">
-                <select id="src_ld_unit">
-                  <option value="imp" selected>Impedance</option>
-                  <option value="adm">Admittance</option>
-                  <option value="ma">Gamma Mag/Angle</option>
-                  <option value="ri">Gamma Re/Im</option>
-                  <option value="rc">Parallel RC</option>
+            <div class="col-2">
+              <div class="input-group mb-2">
+                <span class="input-group-text inputGroupmw">Format</span>
+                <select class="form-select" id="src_ld_unit"
+                  onchange="change_imp()" autocomplete="off">
+                  <option value="imp" selected>Z</option>
+                  <option value="adm">Y</option>
+                  <option value="ma">Γ Mag/Ang</option>
+                  <option value="ri">Γ Re/Im</option>
+                  <option value="rc">RC</option>
                 </select>
               </div>
             </div>
           </div>
 
           <!-- Digits, Frequency & Q -->
-          <div class="row m-3">
-            <div class="col">
-              <div class="field">
-                <label class="form-label">Significant Digits</label>
-                <input class="form-control text-center is-valid" type="text"
-                  pattern="[0-9]+" name="sig_digits" id="sig_digits"
-                  value="2" onkeyup="update_imp()">
+          <div class="row mt-3 justify-content-center">
+            <div class="col-3">
+              <div class="input-group mb-2">
+                <span class="input-group-text inputGroupmw">Frequency</span>
+                <input type="number" value="275" id="freq"
+                  class="form-control text-center" onchange="update_imp()"
+                  autocomplete="off">
               </div>
             </div>
-            <div class="col">
-              <div class="field">
-                <label class="form-label" id="freq_label">Frequency
-                  (GHz)</label>
-                <input class="form-control text-center is-valid" type="text"
-                  pattern="[0-9]+(\.[0-9]*)?" name="freq" id="freq"
-                  value="275" onkeyup="update_imp()">
+
+            <div class="col-2">
+              <div class="input-group mb-2">
+                <span class="input-group-text inputGroupmw">Z₀</span>
+                <input type="number" value="100" id="z0"
+                  class="form-control text-center" onchange="update_imp()"
+                  autocomplete="off">
               </div>
             </div>
-            <div class="col">
-              <div class="field">
-                <label class="form-label">Zo</label>
-                <input class="form-control text-center is-valid" type="text"
-                  pattern="[0-9]+(\.[0-9]*)?" name="zo" id="zo"
-                  value="100" onkeyup="update_imp()">
+
+            <div class="col-2">
+              <div class="input-group mb-2">
+                <span class="input-group-text inputGroupmw">Q</span>
+                <input type="number" value="2" id="q"
+                  class="form-control text-center" onchange="update_imp()"
+                  autocomplete="off">
               </div>
             </div>
-            <div class="col">
-              <div class="field">
-                <label class="form-label">Q</label>
-                <input class="form-control text-center is-valid" type="text"
-                  pattern="[0-9]+(\.[0-9]*)?" name="q" id="q"
-                  value="3" onkeyup="update_imp()">
+
+            <div class="col-2">
+              <div class="input-group mb-2">
+                <span class="input-group-text inputGroupmw">Digits</span>
+                <input type="number" value="2" id="sig_digits"
+                  class="form-control text-center" onchange="update_imp()"
+                  autocomplete="off">
               </div>
             </div>
           </div>
 
           <!-- Source Impedance -->
-          <div class="row m-3">
-            <div class="col">
-              <div class="field">
-                <label class="label" id="rs_label">Source Resistance</label>
-                <div class="control">
-                  <input class="form-control text-center is-valid" type="text"
-                    name="rs" id="rs" value="50" onkeyup="update_imp()">
+          <div class="row mt-4 justify-content-center">
+            <div class="col-4 text-center">
+              <h5>Source</h5>
+              <div class="row mt-2">
+                <div class="input-group">
+                  <span class="input-group-text inputGroupmw"
+                    id="zs_label">Z</span>
+                  <input type="number" value="0" id="rs"
+                    class="form-control text-center" onchange="update_imp()"
+                    autocomplete="off">
+                  <span class="input-group-text" id="rs_label">+</span>
+                  <input type="number" value="0" id="xs"
+                    class="form-control text-center" onchange="update_imp()"
+                    autocomplete="off">
+                  <span class="input-group-text" id="xs_label">jΩ</span>
                 </div>
               </div>
             </div>
-            <div class="col">
-              <div class="field">
-                <label class="label" id="xs_label">Source Reactance</label>
-                <div class="control">
-                  <input class="form-control text-center is-valid" type="text"
-                    name="xs" id="xs" value="0" onkeyup="update_imp()">
+
+            <div class="col-1"></div>
+
+            <div class="col-4">
+              <h5>Load</h5>
+              <div class="row mt-2">
+                <div class="input-group">
+                  <span class="input-group-text inputGroupmw"
+                    id="zl_label">Z</span>
+                  <input type="number" value="0" id="rl"
+                    class="form-control text-center" onchange="update_imp()"
+                    autocomplete="off">
+                  <span class="input-group-text" id="rl_label">+</span>
+                  <input type="number" value="0" id="xl"
+                    class="form-control text-center" onchange="update_imp()"
+                    autocomplete="off">
+                  <span class="input-group-text" id="xl_label">jΩ</span>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Load Impedance -->
-          <div class="row m-3">
+          <div class="row m-5 mt-4 justify-content-center">
             <div class="col">
-              <div class="field">
-                <label class="label" id="rl_label">Load Resistance</label>
-                <div class="control">
-                  <input class="form-control text-center is-valid" type="text"
-                    name="rl" id="rl" value="50" onkeyup="update_imp()">
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="field">
-                <label class="label" id="xl_label">Load Reactance</label>
-                <div class="control">
-                  <input class="form-control text-center is-valid" type="text"
-                    name="xl" id="xl" value="0" onkeyup="update_imp()">
-                </div>
-              </div>
+              <button type="button" class="btn btn-secondary"
+                onclick="update_imp()">Calculate</button>
             </div>
           </div>
 
@@ -252,30 +264,35 @@
                             Series
                             C</p>
                           <img src="images/lc_hp_bg.png">
-                          <div class="field">
-                            <label class="label" id="hplc_l_label">L
-                              (pH)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="hplc_l_val" value>
+                          <div class="row m-2 mt-4">
+                            <div class="input-group">
+                              <span class="input-group-text">L</span>
+                              <output class="form-control text-center"
+                                id="hplc_l_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="l_label">pH</span>
                             </div>
                           </div>
-                          <div class="field">
-                            <label class="label" id="hplc_c_label">C
-                              (fF)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="hplc_c_val" value>
+                          <div class="row m-2">
+                            <div class="input-group">
+                              <span class="input-group-text">C</span>
+                              <output class="form-control text-center"
+                                id="hplc_c_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="c_label">fF</span>
                             </div>
                           </div>
-                          <div class="field">
-                            <label class="label">Q</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="hplc_q_val" value>
+                          <div class="row m-2">
+                            <div class="input-group">
+                              <span class="input-group-text">Q</span>
+                              <output class="form-control text-center"
+                                id="hplc_q_val">
+                                <div class="text_box"></div>
+                              </output>
                             </div>
                           </div>
                         </div>
@@ -284,30 +301,35 @@
                             Series
                             L</p>
                           <img src="images/cl_lp_bg.png">
-                          <div class="field">
-                            <label class="label" id="lpcl_c_label">C
-                              (fF)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="lpcl_c_val" value>
+                          <div class="row m-2 mt-4">
+                            <div class="input-group">
+                              <span class="input-group-text">C</span>
+                              <output class="form-control text-center"
+                                id="lpcl_c_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="c_label">fF</span>
                             </div>
-                            <div class="field">
-                              <label class="label" id="lpcl_l_label">L
-                                (pH)</label>
-                              <div class="control">
-                                <input class="input text-center"
-                                  type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                  id="lpcl_l_val" value>
-                              </div>
+                          </div>
+                          <div class="row m-2">
+                            <div class="input-group">
+                              <span class="input-group-text">L</span>
+                              <output class="form-control text-center"
+                                id="lpcl_l_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="l_label">pH</span>
                             </div>
-                            <div class="field">
-                              <label class="label">Q</label>
-                              <div class="control">
-                                <input class="input text-center"
-                                  type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                  id="lpcl_q_val" value>
-                              </div>
+                          </div>
+                          <div class="row m-2">
+                            <div class="input-group">
+                              <span class="input-group-text">Q</span>
+                              <output class="form-control text-center"
+                                id="lpcl_q_val">
+                                <div class="text_box"></div>
+                              </output>
                             </div>
                           </div>
                         </div>
@@ -316,30 +338,35 @@
                             Shunt
                             L</p>
                           <img src="images/cl_hp_bg.png">
-                          <div class="field">
-                            <label class="label" id="hpcl_c_label">C
-                              (fF)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="hpcl_c_val" value>
+                          <div class="row m-2 mt-4">
+                            <div class="input-group">
+                              <span class="input-group-text">C</span>
+                              <output class="form-control text-center"
+                                id="hpcl_c_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="c_label">fF</span>
                             </div>
                           </div>
-                          <div class="field">
-                            <label class="label" id="hpcl_l_label">L
-                              (pH)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="hpcl_l_val" value>
+                          <div class="row m-2">
+                            <div class="input-group">
+                              <span class="input-group-text">L</span>
+                              <output class="form-control text-center"
+                                id="hpcl_l_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="l_label">pH</span>
                             </div>
                           </div>
-                          <div class="field">
-                            <label class="label">Q</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="hpcl_q_val" value>
+                          <div class="row m-2">
+                            <div class="input-group">
+                              <span class="input-group-text">Q</span>
+                              <output class="form-control text-center"
+                                id="hpcl_q_val">
+                                <div class="text_box"></div>
+                              </output>
                             </div>
                           </div>
                         </div>
@@ -348,30 +375,35 @@
                             Shunt
                             C</p>
                           <img src="images/lc_lp_bg.png">
-                          <div class="field">
-                            <label class="label" id="lplc_l_label">L
-                              (pH)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="lplc_l_val" value>
+                          <div class="row m-2 mt-4">
+                            <div class="input-group">
+                              <span class="input-group-text">L</span>
+                              <output class="form-control text-center"
+                                id="lplc_l_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="l_label">pH</span>
                             </div>
                           </div>
-                          <div class="field">
-                            <label class="label" id="lplc_c_label">C
-                              (fF)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="lplc_c_val" value>
+                          <div class="row m-2">
+                            <div class="input-group">
+                              <span class="input-group-text">C</span>
+                              <output class="form-control text-center"
+                                id="lplc_c_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="c_label">fF</span>
                             </div>
                           </div>
-                          <div class="field">
-                            <label class="label">Q</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="lplc_q_val" value>
+                          <div class="row m-2">
+                            <div class="input-group">
+                              <span class="input-group-text">Q</span>
+                              <output class="form-control text-center"
+                                id="lplc_q_val">
+                                <div class="text_box"></div>
+                              </output>
                             </div>
                           </div>
                         </div>
@@ -397,39 +429,46 @@
                           <p class="is-size-4 has-text-primary-100">High Pass
                             Tee</p>
                           <img src="images/tee_hp_bg.png">
-                          <div class="field">
-                            <label class="label" id="hptee_cs_label">Cs
-                              (fF)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="teehp_cs_val" value>
+                          <div class="row m-2 mt-4">
+                            <div class="input-group">
+                              <span class="input-group-text">CS</span>
+                              <output class="form-control text-center"
+                                id="teehp_cs_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="c_label">fF</span>
                             </div>
                           </div>
-                          <div class="field">
-                            <label class="label" id="hptee_l_label">L
-                              (pH)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="teehp_l_val" value>
+                          <div class="row m-2">
+                            <div class="input-group">
+                              <span class="input-group-text">L</span>
+                              <output class="form-control text-center"
+                                id="teehp_l_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="l_label">pH</span>
                             </div>
                           </div>
-                          <div class="field">
-                            <label class="label" id="hptee_cl_label">Cl
-                              (fF)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="teehp_cl_val" value>
+                          <div class="row m-2">
+                            <div class="input-group">
+                              <span class="input-group-text">CL</span>
+                              <output class="form-control text-center"
+                                id="teehp_cl_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="c_label">fF</span>
                             </div>
                           </div>
-                          <div class="field">
-                            <label class="label">Q</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="teehp_q_val" value>
+                          <div class="row m-2">
+                            <div class="input-group">
+                              <span class="input-group-text">Q</span>
+                              <output class="form-control text-center"
+                                id="teehp_q_val">
+                                <div class="text_box"></div>
+                              </output>
                             </div>
                           </div>
                         </div>
@@ -437,39 +476,46 @@
                           <p class="is-size-4 has-text-primary-100">Low Pass
                             Tee</p>
                           <img src="images/tee_lp_bg.png">
-                          <div class="field">
-                            <label class="label" id="lptee_ls_label">Ls
-                              (pH)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="teelp_ls_val" value>
+                          <div class="row m-2 mt-4">
+                            <div class="input-group">
+                              <span class="input-group-text">LS</span>
+                              <output class="form-control text-center"
+                                id="teelp_ls_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="l_label">pH</span>
                             </div>
                           </div>
-                          <div class="field">
-                            <label class="label" id="lptee_c_label">C
-                              (fF)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="teelp_c_val" value>
+                          <div class="row m-2">
+                            <div class="input-group">
+                              <span class="input-group-text">C</span>
+                              <output class="form-control text-center"
+                                id="teelp_c_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="c_label">fF</span>
                             </div>
                           </div>
-                          <div class="field">
-                            <label class="label" id="lptee_ll_label">Ll
-                              (pH)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="teelp_ll_val" value>
+                          <div class="row m-2">
+                            <div class="input-group">
+                              <span class="input-group-text">LL</span>
+                              <output class="form-control text-center"
+                                id="teelp_ll_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="l_label">pH</span>
                             </div>
                           </div>
-                          <div class="field">
-                            <label class="label">Q</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="teelp_q_val" value>
+                          <div class="row m-2">
+                            <div class="input-group">
+                              <span class="input-group-text">Q</span>
+                              <output class="form-control text-center"
+                                id="teelp_q_val">
+                                <div class="text_box"></div>
+                              </output>
                             </div>
                           </div>
                         </div>
@@ -477,39 +523,46 @@
                           <p class="is-size-4 has-text-primary-100">Low Pass
                             Pi</p>
                           <img src="images/pi_lp_bg.png">
-                          <div class="field">
-                            <label class="label" id="lppi_cs_label">Cs
-                              (fF)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="pilp_cs_val" value>
+                          <div class="row m-2 mt-4">
+                            <div class="input-group">
+                              <span class="input-group-text">CS</span>
+                              <output class="form-control text-center"
+                                id="pilp_cs_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="c_label">fF</span>
                             </div>
                           </div>
-                          <div class="field">
-                            <label class="label" id="lppi_l_label">L
-                              (pH)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="pilp_l_val" value>
+                          <div class="row m-2">
+                            <div class="input-group">
+                              <span class="input-group-text">L</span>
+                              <output class="form-control text-center"
+                                id="pilp_l_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="l_label">pH</span>
                             </div>
                           </div>
-                          <div class="field">
-                            <label class="label" id="lppi_cl_label">Cl
-                              (fF)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="pilp_cl_val" value>
+                          <div class="row m-2">
+                            <div class="input-group">
+                              <span class="input-group-text">CL</span>
+                              <output class="form-control text-center"
+                                id="pilp_cl_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="c_label">fF</span>
                             </div>
                           </div>
-                          <div class="field">
-                            <label class="label">Q</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="pilp_q_val" value>
+                          <div class="row m-2">
+                            <div class="input-group">
+                              <span class="input-group-text">Q</span>
+                              <output class="form-control text-center"
+                                id="pilp_q_val">
+                                <div class="text_box"></div>
+                              </output>
                             </div>
                           </div>
                         </div>
@@ -517,39 +570,46 @@
                           <p class="is-size-4 has-text-primary-100">High Pass
                             Pi</p>
                           <img src="images/pi_hp_bg.png">
-                          <div class="field">
-                            <label class="label" id="hppi_ls_label">Ls
-                              (pH)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="pihp_ls_val" value>
+                          <div class="row m-2 mt-4">
+                            <div class="input-group">
+                              <span class="input-group-text">LS</span>
+                              <output class="form-control text-center"
+                                id="pihp_ls_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="l_label">pH</span>
                             </div>
                           </div>
-                          <div class="field">
-                            <label class="label" id="hppi_c_label">C
-                              (fF)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="pihp_c_val" value>
+                          <div class="row m-2">
+                            <div class="input-group">
+                              <span class="input-group-text">C</span>
+                              <output class="form-control text-center"
+                                id="pihp_c_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="c_label">fF</span>
                             </div>
                           </div>
-                          <div class="field">
-                            <label class="label" id="hppi_ll_label">Ll
-                              (pH)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="pihp_ll_val" value>
+                          <div class="row m-2">
+                            <div class="input-group">
+                              <span class="input-group-text">LL</span>
+                              <output class="form-control text-center"
+                                id="pihp_ll_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="l_label">pH</span>
                             </div>
                           </div>
-                          <div class="field">
-                            <label class="label">Q</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="pihp_q_val" value>
+                          <div class="row m-2">
+                            <div class="input-group">
+                              <span class="input-group-text">Q</span>
+                              <output class="form-control text-center"
+                                id="pihp_q_val">
+                                <div class="text_box"></div>
+                              </output>
                             </div>
                           </div>
                         </div>
@@ -576,40 +636,48 @@
                           <p class="is-size-4 has-text-primary-100">High Pass LL
                             Hi-Low</p>
                           <img src="images/hp1ll_bg.png">
-                          <div class="field">
-                            <label class="label" id="hp1_ls_label">Ls
-                              (pH)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="hp1_ls_val" value>
+                          <div class="row m-2 mt-4">
+                            <div class="input-group">
+                              <span class="input-group-text">LS</span>
+                              <output class="form-control text-center"
+                                id="hp1_ls_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="l_label">pH</span>
                             </div>
                           </div>
-                          <div class="field">
-                            <label class="label" id="hp1_cs_label">Cs
-                              (fF)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="hp1_cs_val" value>
+                          <div class="row m-2">
+                            <div class="input-group">
+                              <span class="input-group-text">CS</span>
+                              <output class="form-control text-center"
+                                id="hp1_cs_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="c_label">fF</span>
                             </div>
                           </div>
-                          <div class="field">
-                            <label class="label" id="hp1_ll_label">Ll
-                              (pH)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="hp1_ll_val" value>
+                          <div class="row m-2">
+                            <div class="input-group">
+                              <span class="input-group-text">LL</span>
+                              <output class="form-control text-center"
+                                id="hp1_ll_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="l_label">pH</span>
                             </div>
                           </div>
-                          <div class="field">
-                            <label class="label" id="hp1_cl_label">Cl
-                              (fF)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="hp1_cl_val" value>
+                          <div class="row m-2">
+                            <div class="input-group">
+                              <span class="input-group-text">CL</span>
+                              <output class="form-control text-center"
+                                id="hp1_cl_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="c_label">fF</span>
                             </div>
                           </div>
                         </div>
@@ -617,40 +685,48 @@
                           <p class="is-size-4 has-text-primary-100">High Pass LL
                             Low-Hi</p>
                           <img src="images/hp2ll_bg.png">
-                          <div class="field">
-                            <label class="label" id="hp2_cs_label">Cs
-                              (fF)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="hp2_cs_val" value>
+                          <div class="row m-2 mt-4">
+                            <div class="input-group">
+                              <span class="input-group-text">CS</span>
+                              <output class="form-control text-center"
+                                id="hp2_cs_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="c_label">fF</span>
                             </div>
                           </div>
-                          <div class="field">
-                            <label class="label" id="hp2_ls_label">Ls
-                              (pH)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="hp2_ls_val" value>
+                          <div class="row m-2">
+                            <div class="input-group">
+                              <span class="input-group-text">LS</span>
+                              <output class="form-control text-center"
+                                id="hp2_ls_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="l_label">pH</span>
                             </div>
                           </div>
-                          <div class="field">
-                            <label class="label" id="hp2_cl_label">Cl
-                              (fF)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="hp2_cl_val" value>
+                          <div class="row m-2">
+                            <div class="input-group">
+                              <span class="input-group-text">CL</span>
+                              <output class="form-control text-center"
+                                id="hp2_cl_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="c_label">fF</span>
                             </div>
                           </div>
-                          <div class="field">
-                            <label class="label" id="hp2_ll_label">Ll
-                              (pH)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="hp2_ll_val" value>
+                          <div class="row m-2">
+                            <div class="input-group">
+                              <span class="input-group-text">LL</span>
+                              <output class="form-control text-center"
+                                id="hp2_ll_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="l_label">pH</span>
                             </div>
                           </div>
                         </div>
@@ -658,39 +734,48 @@
                           <p class="is-size-4 has-text-primary-100">Low Pass LL
                             Hi-Low</p>
                           <img src="images/lp1ll_bg.png">
-                          <div class="field">
-                            <label class="label" id="lp1_cs_label">Cs</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="lp1_cs_val" value>
+                          <div class="row m-2 mt-4">
+                            <div class="input-group">
+                              <span class="input-group-text">CS</span>
+                              <output class="form-control text-center"
+                                id="lp1_cs_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="c_label">fF</span>
                             </div>
                           </div>
-                          <div class="field">
-                            <label class="label" id="lp1_ls_label">Ls
-                              (pH)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="lp1_ls_val" value>
+                          <div class="row m-2">
+                            <div class="input-group">
+                              <span class="input-group-text">LS</span>
+                              <output class="form-control text-center"
+                                id="lp1_ls_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="l_label">pH</span>
                             </div>
                           </div>
-                          <div class="field">
-                            <label class="label" id="lp1_cl_label">Cl
-                              (fF)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="lp1_cl_val" value>
+                          <div class="row m-2">
+                            <div class="input-group">
+                              <span class="input-group-text">CL</span>
+                              <output class="form-control text-center"
+                                id="lp1_cl_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="c_label">fF</span>
                             </div>
                           </div>
-                          <div class="field">
-                            <label class="label" id="lp1_ll_label">Ll
-                              (pH)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="lp1_ll_val" value>
+                          <div class="row m-2">
+                            <div class="input-group">
+                              <span class="input-group-text">LL</span>
+                              <output class="form-control text-center"
+                                id="lp1_ll_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="l_label">pH</span>
                             </div>
                           </div>
                         </div>
@@ -698,40 +783,48 @@
                           <p class="is-size-4 has-text-primary-100">Low Pass LL
                             Low-Hi</p>
                           <img src="images/lp2ll_bg.png">
-                          <div class="field">
-                            <label class="label" id="lp2_ls_label">Ls
-                              (pH)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="lp2_ls_val" value>
+                          <div class="row m-2 mt-4">
+                            <div class="input-group">
+                              <span class="input-group-text">LS</span>
+                              <output class="form-control text-center"
+                                id="lp2_ls_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="l_label">pH</span>
                             </div>
                           </div>
-                          <div class="field">
-                            <label class="label" id="lp2_cs_label">Cs
-                              (fF)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="lp2_cs_val" value>
+                          <div class="row m-2">
+                            <div class="input-group">
+                              <span class="input-group-text">CS</span>
+                              <output class="form-control text-center"
+                                id="lp2_cs_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="c_label">fF</span>
                             </div>
                           </div>
-                          <div class="field">
-                            <label class="label" id="lp2_ll_label">Ll
-                              (pH)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="lp2_ll_val" value>
+                          <div class="row m-2">
+                            <div class="input-group">
+                              <span class="input-group-text">LL</span>
+                              <output class="form-control text-center"
+                                id="lp2_ll_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="l_label">pH</span>
                             </div>
                           </div>
-                          <div class="field">
-                            <label class="label" id="lp2_cl_label">Cl
-                              (fF)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="lp2_cl_val" value>
+                          <div class="row m-2">
+                            <div class="input-group">
+                              <span class="input-group-text">CL</span>
+                              <output class="form-control text-center"
+                                id="lp2_cl_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="c_label">fF</span>
                             </div>
                           </div>
                         </div>
@@ -758,40 +851,48 @@
                           <p class="is-size-4 has-text-primary-100">Band Pass CC
                             Hi-Low</p>
                           <img src="images/bp1ll_bg.png">
-                          <div class="field">
-                            <label class="label" id="bp1_ls_label">Ls
-                              (pH)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="bp1_ls_val" value>
+                          <div class="row m-2 mt-4">
+                            <div class="input-group">
+                              <span class="input-group-text">LS</span>
+                              <output class="form-control text-center"
+                                id="bp1_ls_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="l_label">pH</span>
                             </div>
                           </div>
-                          <div class="field">
-                            <label class="label" id="bp1_cs_label">Cs
-                              (fF)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="bp1_cs_val" value>
+                          <div class="row m-2">
+                            <div class="input-group">
+                              <span class="input-group-text">CS</span>
+                              <output class="form-control text-center"
+                                id="bp1_cs_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="c_label">fF</span>
                             </div>
                           </div>
-                          <div class="field">
-                            <label class="label" id="bp1_cl_label">Cl
-                              (fF)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="bp1_cl_val" value>
+                          <div class="row m-2">
+                            <div class="input-group">
+                              <span class="input-group-text">CL</span>
+                              <output class="form-control text-center"
+                                id="bp1_cl_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="c_label">fF</span>
                             </div>
                           </div>
-                          <div class="field">
-                            <label class="label" id="bp1_ll_label">Ll
-                              (pH)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="bp1_ll_val" value>
+                          <div class="row m-2">
+                            <div class="input-group">
+                              <span class="input-group-text">LL</span>
+                              <output class="form-control text-center"
+                                id="bp1_ll_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="l_label">pH</span>
                             </div>
                           </div>
                         </div>
@@ -799,40 +900,48 @@
                           <p class="is-size-4 has-text-primary-100">Band Pass CC
                             Low-Hi</p>
                           <img src="images/bp2ll_bg.png">
-                          <div class="field">
-                            <label class="label" id="bp2_ls_label">Ls
-                              (pH)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="bp2_ls_val" value>
+                          <div class="row m-2 mt-4">
+                            <div class="input-group">
+                              <span class="input-group-text">LS</span>
+                              <output class="form-control text-center"
+                                id="bp2_ls_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="l_label">pH</span>
                             </div>
                           </div>
-                          <div class="field">
-                            <label class="label" id="bp2_cs_label">Cs
-                              (fF)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="bp2_cs_val" value>
+                          <div class="row m-2">
+                            <div class="input-group">
+                              <span class="input-group-text">CS</span>
+                              <output class="form-control text-center"
+                                id="bp2_cs_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="c_label">fF</span>
                             </div>
                           </div>
-                          <div class="field">
-                            <label class="label" id="bp2_cl_label">Cl
-                              (fF)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="bp2_cl_val" value>
+                          <div class="row m-2">
+                            <div class="input-group">
+                              <span class="input-group-text">CL</span>
+                              <output class="form-control text-center"
+                                id="bp2_cl_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="c_label">fF</span>
                             </div>
                           </div>
-                          <div class="field">
-                            <label class="label" id="bp2_ll_label">Ll
-                              (pH)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="bp2_ll_val" value>
+                          <div class="row m-2">
+                            <div class="input-group">
+                              <span class="input-group-text">LL</span>
+                              <output class="form-control text-center"
+                                id="bp2_ll_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="l_label">pH</span>
                             </div>
                           </div>
                         </div>
@@ -840,40 +949,48 @@
                           <p class="is-size-4 has-text-primary-100">Band Pass LL
                             Hi-Low</p>
                           <img src="images/bp3ll_bg.png">
-                          <div class="field">
-                            <label class="label" id="bp3_cs_label">Cs
-                              (fF)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="bp3_cs_val" value>
+                          <div class="row m-2 mt-4">
+                            <div class="input-group">
+                              <span class="input-group-text">CS</span>
+                              <output class="form-control text-center"
+                                id="bp3_cs_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="c_label">fF</span>
                             </div>
                           </div>
-                          <div class="field">
-                            <label class="label" id="bp3_ls_label">Ls
-                              (pH)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="bp3_ls_val" value>
+                          <div class="row m-2">
+                            <div class="input-group">
+                              <span class="input-group-text">LS</span>
+                              <output class="form-control text-center"
+                                id="bp3_ls_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="l_label">pH</span>
                             </div>
                           </div>
-                          <div class="field">
-                            <label class="label" id="bp3_ll_label">Ll
-                              (pH)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="bp3_ll_val" value>
+                          <div class="row m-2">
+                            <div class="input-group">
+                              <span class="input-group-text">LL</span>
+                              <output class="form-control text-center"
+                                id="bp3_ll_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="l_label">pH</span>
                             </div>
                           </div>
-                          <div class="field">
-                            <label class="label" id="bp3_cl_label">Cl
-                              (fF)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="bp3_cl_val" value>
+                          <div class="row m-2">
+                            <div class="input-group">
+                              <span class="input-group-text">CL</span>
+                              <output class="form-control text-center"
+                                id="bp3_cl_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="c_label">fF</span>
                             </div>
                           </div>
                         </div>
@@ -881,40 +998,48 @@
                           <p class="is-size-4 has-text-primary-100">Band Pass LL
                             Low-Hi</p>
                           <img src="images/bp4ll_bg.png">
-                          <div class="field">
-                            <label class="label" id="bp4_cs_label">Cs
-                              (fF)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="bp4_cs_val" value>
+                          <div class="row m-2 mt-4">
+                            <div class="input-group">
+                              <span class="input-group-text">CS</span>
+                              <output class="form-control text-center"
+                                id="bp4_cs_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="c_label">fF</span>
                             </div>
                           </div>
-                          <div class="field">
-                            <label class="label" id="bp4_ls_label">Ls
-                              (pH)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="bp4_ls_val" value>
+                          <div class="row m-2">
+                            <div class="input-group">
+                              <span class="input-group-text">LS</span>
+                              <output class="form-control text-center"
+                                id="bp4_ls_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="l_label">pH</span>
                             </div>
                           </div>
-                          <div class="field">
-                            <label class="label" id="bp4_ll_label">Ll
-                              (pH)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="bp4_ll_val" value>
+                          <div class="row m-2">
+                            <div class="input-group">
+                              <span class="input-group-text">LL</span>
+                              <output class="form-control text-center"
+                                id="bp4_ll_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="l_label">pH</span>
                             </div>
                           </div>
-                          <div class="field">
-                            <label class="label" id="bp4_cl_label">Cl
-                              (fF)</label>
-                            <div class="control">
-                              <input class="input text-center"
-                                type="text" pattern="[0-9]+(\.[0-9]*)?"
-                                id="bp4_cl_val" value>
+                          <div class="row m-2">
+                            <div class="input-group">
+                              <span class="input-group-text">CL</span>
+                              <output class="form-control text-center"
+                                id="bp4_cl_val">
+                                <div class="text_box"></div>
+                              </output>
+                              <span class="input-group-text"
+                                id="c_label">fF</span>
                             </div>
                           </div>
                         </div>

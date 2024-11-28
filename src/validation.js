@@ -1,8 +1,8 @@
-document.getElementById('imp_unit').addEventListener("change", function() { update_imp(); });
-document.getElementById('f_unit').addEventListener("change", function() { change_unit(); });
-document.getElementById('c_unit').addEventListener("change", function() { change_unit(); });
-document.getElementById('l_unit').addEventListener("change", function() { change_unit(); });
-document.getElementById('src_ld_unit').addEventListener("change", function() { change_imp(); });
+// document.getElementById('imp_unit').addEventListener("change", function() { update_imp(); });
+// document.getElementById('f_unit').addEventListener("change", function() { change_unit(); });
+// document.getElementById('c_unit').addEventListener("change", function() { change_unit(); });
+// document.getElementById('l_unit').addEventListener("change", function() { change_unit(); });
+// document.getElementById('src_ld_unit').addEventListener("change", function() { change_imp(); });
 
 function validate_posnum(e, field) {
   e.preventDefault();
@@ -52,23 +52,23 @@ function validate_decimal(e, field) {
   return valid;
 }
 
-const freq = document.getElementById("freq");
-freq.addEventListener('focusout', (e) => validate_posnum(e, "freq"));
+// const freq = document.getElementById("freq");
+// freq.addEventListener('focusout', (e) => validate_posnum(e, "freq"));
 
-const zo = document.getElementById("zo");
-zo.addEventListener('focusout', (e) => validate_posnum(e, "zo"));
+// const zo = document.getElementById("zo");
+// zo.addEventListener('focusout', (e) => validate_posnum(e, "zo"));
 
-const q = document.getElementById("q");
-q.addEventListener('focusout', (e) => validate_posnum(e, "q"));
+// const q = document.getElementById("q");
+// q.addEventListener('focusout', (e) => validate_posnum(e, "q"));
 
-const rs = document.getElementById("rs");
-rs.addEventListener('focusout', (e) => validate_num(e, "rs"));
+// const rs = document.getElementById("rs");
+// rs.addEventListener('focusout', (e) => validate_num(e, "rs"));
 
-const xs = document.getElementById("xs");
-xs.addEventListener('focusout', (e) => validate_num(e, "xs"));
+// const xs = document.getElementById("xs");
+// xs.addEventListener('focusout', (e) => validate_num(e, "xs"));
 
-const rl = document.getElementById("rl");
-rl.addEventListener('focusout', (e) => validate_num(e, "rl"));
+// const rl = document.getElementById("rl");
+// rl.addEventListener('focusout', (e) => validate_num(e, "rl"));
 
-const xl = document.getElementById("xl");
-xl.addEventListener('focusout', (e) => validate_num(e, "xl"));
+// const xl = document.getElementById("xl");
+// xl.addEventListener('focusout', (e) => validate_num(e, "xl"));

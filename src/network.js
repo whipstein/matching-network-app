@@ -64,6 +64,22 @@ function print_val(val, unit, sd) {
     return "" + val
 }
 
+function print_unit(unit) {
+    if (unit == "milli") {
+        return "m"
+    } else if (unit == "micro") {
+        return "μ"
+    } else if (unit == "nano") {
+        return "n"
+    } else if (unit == "pico") {
+        return "p"
+    } else if (unit == "femto") {
+        return "f"
+    } else {
+        return ""
+    }
+}
+
 class Config {
     constructor(z0, freq, q, sd, c_unit, l_unit, f_unit, imp_unit, src_ld_unit) {
         this._z0 = parseFloat(z0)
@@ -188,29 +204,10 @@ class CCLL {
         const lsField = document.getElementById(this.id + "_ls_val")
         const llField = document.getElementById(this.id + "_ll_val")
 
-        csField.value = print_val(this.cs, c, sd)
-        clField.value = print_val(this.cl, c, sd)
-        lsField.value = print_val(this.ls, l, sd)
-        llField.value = print_val(this.ll, l, sd)
-        if (this.valid) {
-            csField.classList.remove("is-invalid")
-            clField.classList.remove("is-invalid")
-            lsField.classList.remove("is-invalid")
-            llField.classList.remove("is-invalid")
-            csField.classList.add("is-valid")
-            clField.classList.add("is-valid")
-            lsField.classList.add("is-valid")
-            llField.classList.add("is-valid")
-        } else {
-            csField.classList.remove("is-valid")
-            clField.classList.remove("is-valid")
-            lsField.classList.remove("is-valid")
-            llField.classList.remove("is-valid")
-            csField.classList.add("is-invalid")
-            clField.classList.add("is-invalid")
-            lsField.classList.add("is-invalid")
-            llField.classList.add("is-invalid")
-        }
+        csField.innerHTML = "<div class=\"text_box\">" + print_val(this.cs, c, sd) + "</div>"
+        clField.innerHTML = "<div class=\"text_box\">" + print_val(this.cl, c, sd) + "</div>"
+        lsField.innerHTML = "<div class=\"text_box\">" + print_val(this.ls, l, sd) + "</div>"
+        llField.innerHTML = "<div class=\"text_box\">" + print_val(this.ll, l, sd) + "</div>"
     }
     get valid() {
         if (this.cs < 0 || this.cl < 0 || this.ls < 0 || this.ll < 0 || Number.isNaN(this.cs) || Number.isNaN(this.cl) || Number.isNaN(this.ls) || Number.isNaN(this.ll)) {
@@ -238,25 +235,10 @@ class CLL {
         lsField.value = print_val(this.ls, l, sd)
         llField.value = print_val(this.ll, l, sd)
         qField.value = print_val(this.q, "", sd)
-        if (this.valid) {
-            cField.classList.remove("is-invalid")
-            lsField.classList.remove("is-invalid")
-            llField.classList.remove("is-invalid")
-            qField.classList.remove("is-invalid")
-            cField.classList.add("is-valid")
-            lsField.classList.add("is-valid")
-            llField.classList.add("is-valid")
-            qField.classList.add("is-valid")
-        } else {
-            cField.classList.remove("is-valid")
-            lsField.classList.remove("is-valid")
-            llField.classList.remove("is-valid")
-            qField.classList.remove("is-valid")
-            cField.classList.add("is-invalid")
-            lsField.classList.add("is-invalid")
-            llField.classList.add("is-invalid")
-            qField.classList.add("is-invalid")
-        }
+        cField.innerHTML = "<div class=\"text_box\">" + print_val(this.c, c, sd) + "</div>"
+        lsField.innerHTML = "<div class=\"text_box\">" + print_val(this.ls, l, sd) + "</div>"
+        llField.innerHTML = "<div class=\"text_box\">" + print_val(this.ll, l, sd) + "</div>"
+        qField.innerHTML = "<div class=\"text_box\">" + print_val(this.q, "", sd) + "</div>"
     }
     get valid() {
         if (this.c < 0 || this.ls < 0 || this.ll < 0 || Number.isNaN(this.c) || Number.isNaN(this.ls) || Number.isNaN(this.ll)) {
@@ -280,29 +262,10 @@ class CCL {
         const lField = document.getElementById(this.id + "_l_val")
         const qField = document.getElementById(this.id + "_q_val")
 
-        csField.value = print_val(this.cs, c, sd)
-        clField.value = print_val(this.cl, c, sd)
-        lField.value = print_val(this.l, l, sd)
-        qField.value = print_val(this.q, "", sd)
-        if (this.valid) {
-            csField.classList.remove("is-invalid")
-            clField.classList.remove("is-invalid")
-            lField.classList.remove("is-invalid")
-            qField.classList.remove("is-invalid")
-            csField.classList.add("is-valid")
-            clField.classList.add("is-valid")
-            lField.classList.add("is-valid")
-            qField.classList.add("is-valid")
-        } else {
-            csField.classList.remove("is-valid")
-            clField.classList.remove("is-valid")
-            lField.classList.remove("is-valid")
-            qField.classList.remove("is-valid")
-            csField.classList.add("is-invalid")
-            clField.classList.add("is-invalid")
-            lField.classList.add("is-invalid")
-            qField.classList.add("is-invalid")
-        }
+        csField.innerHTML = "<div class=\"text_box\">" + print_val(this.cs, c, sd) + "</div>"
+        clField.innerHTML = "<div class=\"text_box\">" + print_val(this.cl, c, sd) + "</div>"
+        lField.innerHTML = "<div class=\"text_box\">" + print_val(this.l, l, sd) + "</div>"
+        qField.innerHTML = "<div class=\"text_box\">" + print_val(this.q, "", sd) + "</div>"
     }
     get valid() {
         if (this.cs < 0 || this.cl < 0 || this.l < 0 || Number.isNaN(this.cs) || Number.isNaN(this.cl) || Number.isNaN(this.l)) {
@@ -324,24 +287,9 @@ class CL {
         const lField = document.getElementById(this.id + "_l_val")
         const qField = document.getElementById(this.id + "_q_val")
 
-        cField.value = print_val(this.c, c, sd)
-        lField.value = print_val(this.l, l, sd)
-        qField.value = print_val(this.q, "", sd)
-        if (this.valid) {
-            cField.classList.remove("is-invalid")
-            lField.classList.remove("is-invalid")
-            qField.classList.remove("is-invalid")
-            cField.classList.add("is-valid")
-            lField.classList.add("is-valid")
-            qField.classList.add("is-valid")
-        } else {
-            cField.classList.remove("is-valid")
-            lField.classList.remove("is-valid")
-            qField.classList.remove("is-valid")
-            cField.classList.add("is-invalid")
-            lField.classList.add("is-invalid")
-            qField.classList.add("is-invalid")
-        }
+        cField.innerHTML = "<div class=\"text_box\">" + print_val(this.c, c, sd) + "</div>"
+        lField.innerHTML = "<div class=\"text_box\">" + print_val(this.l, l, sd) + "</div>"
+        qField.innerHTML = "<div class=\"text_box\">" + print_val(this.q, "", sd) + "</div>"
     }
     get valid() {
         if (this.c < 0 || this.l < 0 || Number.isNaN(this.c) || Number.isNaN(this.l)) {
@@ -417,7 +365,7 @@ function update_imp() {
     result.config.l = document.getElementById("l_unit").value
     result.config.f = document.getElementById("f_unit").value
     const src_ld_unit = document.getElementById("src_ld_unit").value
-    result.config.z0 = parseFloat(document.getElementById("zo").value)
+    result.config.z0 = parseFloat(document.getElementById("z0").value)
     result.config.q = parseFloat(document.getElementById("q").value)
     result.config.freq_scaled = parseFloat(document.getElementById("freq").value)
 
@@ -439,7 +387,6 @@ function update_imp() {
         result.load.zre = document.getElementById("rl").value
         result.load.zim = document.getElementById("xl").value
     }
-    console.log(JSON.stringify(result.src))
 
     setCircuit()
 }
@@ -448,62 +395,72 @@ function change_imp() {
     const src_ld_unit = document.getElementById("src_ld_unit").value
 
     if (src_ld_unit == "adm") {
-        document.getElementById("rs_label").textContent = "Source Conductance";
-        document.getElementById("xs_label").textContent = "Source Susceptance";
-        document.getElementById("rl_label").textContent = "Load Conductance";
-        document.getElementById("xl_label").textContent = "Load Susceptance";
-        document.getElementById("rs").value = print_val(result.src.yre, "", 8)
-        document.getElementById("xs").value = print_val(result.src.yim, "", 8)
-        document.getElementById("rl").value = print_val(result.load.yre, "", 8)
-        document.getElementById("xl").value = print_val(result.load.yim, "", 8)
+        document.getElementById("zs_label").innerHTML = "Y";
+        document.getElementById("zl_label").innerHTML = "Y";
+        document.getElementById("rs_label").innerHTML = "+";
+        document.getElementById("xs_label").innerHTML = "jS";
+        document.getElementById("rl_label").innerHTML = "+";
+        document.getElementById("xl_label").innerHTML = "jS";
+        document.getElementById("rs").innerText = print_val(result.src.yre, "", 8)
+        document.getElementById("xs").innerText = print_val(result.src.yim, "", 8)
+        document.getElementById("rl").innerText = print_val(result.load.yre, "", 8)
+        document.getElementById("xl").innerText = print_val(result.load.yim, "", 8)
     } else if (src_ld_unit == "ma") {
-        document.getElementById("rs_label").textContent = "Source Gamma Mag";
-        document.getElementById("xs_label").textContent = "Source Gamma Angle (deg)";
-        document.getElementById("rl_label").textContent = "Load Gamma Mag";
-        document.getElementById("xl_label").textContent = "Load Gamma Angle (deg)";
-        document.getElementById("rs").value = print_val(result.src.gmag, "", 5)
-        document.getElementById("xs").value = print_val(result.src.gang, "", 2)
-        document.getElementById("rl").value = print_val(result.load.gmag, "", 5)
-        document.getElementById("xl").value = print_val(result.load.gang, "", 2)
+        document.getElementById("zs_label").innerHTML = "Γ";
+        document.getElementById("zl_label").innerHTML = "Γ";
+        document.getElementById("rs_label").innerHTML = "&ang;";
+        document.getElementById("xs_label").innerHTML = "&deg;";
+        document.getElementById("rl_label").innerHTML = "&ang;";
+        document.getElementById("xl_label").innerHTML = "&deg;";
+        document.getElementById("rs").innerText = print_val(result.src.gmag, "", 5)
+        document.getElementById("xs").innerText = print_val(result.src.gang, "", 2)
+        document.getElementById("rl").innerText = print_val(result.load.gmag, "", 5)
+        document.getElementById("xl").innerText = print_val(result.load.gang, "", 2)
     } else if (src_ld_unit == "ri") {
-        document.getElementById("rs_label").textContent = "Source Gamma Real";
-        document.getElementById("xs_label").textContent = "Source Gamma Imaginary";
-        document.getElementById("rl_label").textContent = "Load Gamma Real";
-        document.getElementById("xl_label").textContent = "Load Gamma Imaginary";
-        document.getElementById("rs").value = print_val(result.src.gre, "", 6)
-        document.getElementById("xs").value = print_val(result.src.gim, "", 6)
-        document.getElementById("rl").value = print_val(result.load.gre, "", 6)
-        document.getElementById("xl").value = print_val(result.load.gim, "", 6)
+        document.getElementById("zs_label").innerHTML = "Γ";
+        document.getElementById("zl_label").innerHTML = "Γ";
+        document.getElementById("rs_label").innerHTML = "+";
+        document.getElementById("xs_label").innerHTML = "j";
+        document.getElementById("rl_label").innerHTML = "+";
+        document.getElementById("xl_label").innerHTML = "j";
+        document.getElementById("rs").innerText = print_val(result.src.gre, "", 6)
+        document.getElementById("xs").innerText = print_val(result.src.gim, "", 6)
+        document.getElementById("rl").innerText = print_val(result.load.gre, "", 6)
+        document.getElementById("xl").innerText = print_val(result.load.gim, "", 6)
     } else if (src_ld_unit == "rc") {
         var unit
         if (result.c == "milli") {
-            unit = " (mF)"
+            unit = "mF"
         } else if (result.c == "micro") {
-            unit = " (uF)"
+            unit = "uF"
         } else if (result.c == "nano") {
-            unit = " (nF)"
+            unit = "nF"
         } else if (result.c == "pico") {
-            unit = " (pF)"
+            unit = "pF"
         } else {
-            unit = " (fF)"
+            unit = "fF"
         }
-        document.getElementById("rs_label").textContent = "Source Resistance";
-        document.getElementById("xs_label").textContent = "Source Capacitance" + unit;
-        document.getElementById("rl_label").textContent = "Load Resistance";
-        document.getElementById("xl_label").textContent = "Load Capacitance" + unit;
-        document.getElementById("rs").value = print_val(result.src.res, "", result.sd)
-        document.getElementById("xs").value = print_val(result.src.cap, "", result.sd)
-        document.getElementById("rl").value = print_val(result.load.res, "", result.sd)
-        document.getElementById("xl").value = print_val(result.load.cap, "", result.sd)
+        document.getElementById("zs_label").innerHTML = "RC";
+        document.getElementById("zl_label").innerHTML = "RC";
+        document.getElementById("rs_label").innerHTML = "Ω";
+        document.getElementById("xs_label").innerHTML = unit;
+        document.getElementById("rl_label").innerHTML = "Ω  C =";
+        document.getElementById("xl_label").innerHTML = unit;
+        document.getElementById("rs").innerText = print_val(result.src.res, "", result.sd)
+        document.getElementById("xs").innerText = print_val(result.src.cap, "", result.sd)
+        document.getElementById("rl").innerText = print_val(result.load.res, "", result.sd)
+        document.getElementById("xl").innerText = print_val(result.load.cap, "", result.sd)
     } else {
-        document.getElementById("rs_label").textContent = "Source Resistance";
-        document.getElementById("xs_label").textContent = "Source Reactance";
-        document.getElementById("rl_label").textContent = "Load Resistance";
-        document.getElementById("xl_label").textContent = "Load Reactance";
-        document.getElementById("rs").value = print_val(result.src.zre, "", result.sd)
-        document.getElementById("xs").value = print_val(result.src.zim, "", result.sd)
-        document.getElementById("rl").value = print_val(result.load.zre, "", result.sd)
-        document.getElementById("xl").value = print_val(result.load.zim, "", result.sd)
+        document.getElementById("zs_label").innerHTML = "Z";
+        document.getElementById("zl_label").innerHTML = "Z";
+        document.getElementById("rs_label").innerHTML = "+";
+        document.getElementById("xs_label").innerHTML = "jΩ";
+        document.getElementById("rl_label").innerHTML = "+";
+        document.getElementById("xl_label").innerHTML = "jΩ";
+        document.getElementById("rs").innerText = print_val(result.src.zre, "", result.sd)
+        document.getElementById("xs").innerText = print_val(result.src.zim, "", result.sd)
+        document.getElementById("rl").innerText = print_val(result.load.zre, "", result.sd)
+        document.getElementById("xl").innerText = print_val(result.load.zim, "", result.sd)
     }
 
     update_imp()
@@ -514,292 +471,31 @@ function change_unit() {
     result.config.c = document.getElementById("c_unit").value
     result.config.l = document.getElementById("l_unit").value
 
-    if (result.f == "tera") {
-        document.getElementById("freq_label").textContent = "Frequency (THz)"
-      } else if (result.f  == "mega") {
-        document.getElementById("freq_label").textContent = "Frequency (MHz)"
-      } else if (result.f  == "kilo") {
-        document.getElementById("freq_label").textContent = "Frequency (kHz)"
-      } else {
-        document.getElementById("freq_label").textContent = "Frequency (GHz)"
-      }
-      document.getElementById("freq").value = result.config.freq_scaled
+    document.getElementById("freq").value = result.config.freq_scaled
+    const cLabel = document.querySelectorAll("#c_label")
+    const lLabel = document.querySelectorAll("#l_label")
 
-      if (result.c == "milli") {
-        document.getElementById("hplc_c_label").textContent = "C (mF)";
-        document.getElementById("lpcl_c_label").textContent = "C (mF)";
-        document.getElementById("hpcl_c_label").textContent = "C (mF)";
-        document.getElementById("lplc_c_label").textContent = "C (mF)";
-        document.getElementById("hptee_cs_label").textContent = "Cs (mF)";
-        document.getElementById("hptee_cl_label").textContent = "Cl (mF)";
-        document.getElementById("lptee_c_label").textContent = "C (mF)";
-        document.getElementById("lppi_cs_label").textContent = "Cs (mF)";
-        document.getElementById("lppi_cl_label").textContent = "Cl (mF)";
-        document.getElementById("hppi_c_label").textContent = "C (mF)";
-        document.getElementById("hp1_cs_label").textContent = "Cs (mF)";
-        document.getElementById("hp1_cl_label").textContent = "Cl (mF)";
-        document.getElementById("hp2_cs_label").textContent = "Cs (mF)";
-        document.getElementById("hp2_cl_label").textContent = "Cl (mF)";
-        document.getElementById("lp1_cs_label").textContent = "Cs (mF)";
-        document.getElementById("lp1_cl_label").textContent = "Cl (mF)";
-        document.getElementById("lp2_cs_label").textContent = "Cs (mF)";
-        document.getElementById("lp2_cl_label").textContent = "Cl (mF)";
-        document.getElementById("bp1_cs_label").textContent = "Cs (mF)";
-        document.getElementById("bp1_cl_label").textContent = "Cl (mF)";
-        document.getElementById("bp2_cs_label").textContent = "Cs (mF)";
-        document.getElementById("bp2_cl_label").textContent = "Cl (mF)";
-        document.getElementById("bp3_cs_label").textContent = "Cs (mF)";
-        document.getElementById("bp3_cl_label").textContent = "Cl (mF)";
-        document.getElementById("bp4_cs_label").textContent = "Cs (mF)";
-        document.getElementById("bp4_cl_label").textContent = "Cl (mF)";
-      } else if (result.c  == "micro") {
-        document.getElementById("hplc_c_label").textContent = "C (uF)";
-        document.getElementById("lpcl_c_label").textContent = "C (uF)";
-        document.getElementById("hpcl_c_label").textContent = "C (uF)";
-        document.getElementById("lplc_c_label").textContent = "C (uF)";
-        document.getElementById("hptee_cs_label").textContent = "Cs (uF)";
-        document.getElementById("hptee_cl_label").textContent = "Cl (uF)";
-        document.getElementById("lptee_c_label").textContent = "C (uF)";
-        document.getElementById("lppi_cs_label").textContent = "Cs (uF)";
-        document.getElementById("lppi_cl_label").textContent = "Cl (uF)";
-        document.getElementById("hppi_c_label").textContent = "C (uF)";
-        document.getElementById("hp1_cs_label").textContent = "Cs (uF)";
-        document.getElementById("hp1_cl_label").textContent = "Cl (uF)";
-        document.getElementById("hp2_cs_label").textContent = "Cs (uF)";
-        document.getElementById("hp2_cl_label").textContent = "Cl (uF)";
-        document.getElementById("lp1_cs_label").textContent = "Cs (uF)";
-        document.getElementById("lp1_cl_label").textContent = "Cl (uF)";
-        document.getElementById("lp2_cs_label").textContent = "Cs (uF)";
-        document.getElementById("lp2_cl_label").textContent = "Cl (uF)";
-        document.getElementById("bp1_cs_label").textContent = "Cs (uF)";
-        document.getElementById("bp1_cl_label").textContent = "Cl (uF)";
-        document.getElementById("bp2_cs_label").textContent = "Cs (uF)";
-        document.getElementById("bp2_cl_label").textContent = "Cl (uF)";
-        document.getElementById("bp3_cs_label").textContent = "Cs (uF)";
-        document.getElementById("bp3_cl_label").textContent = "Cl (uF)";
-        document.getElementById("bp4_cs_label").textContent = "Cs (uF)";
-        document.getElementById("bp4_cl_label").textContent = "Cl (uF)";
-      } else if (result.c  == "nano") {
-        document.getElementById("hplc_c_label").textContent = "C (nF)";
-        document.getElementById("lpcl_c_label").textContent = "C (nF)";
-        document.getElementById("hpcl_c_label").textContent = "C (nF)";
-        document.getElementById("lplc_c_label").textContent = "C (nF)";
-        document.getElementById("hptee_cs_label").textContent = "Cs (nF)";
-        document.getElementById("hptee_cl_label").textContent = "Cl (nF)";
-        document.getElementById("lptee_c_label").textContent = "C (nF)";
-        document.getElementById("lppi_cs_label").textContent = "Cs (nF)";
-        document.getElementById("lppi_cl_label").textContent = "Cl (nF)";
-        document.getElementById("hppi_c_label").textContent = "C (nF)";
-        document.getElementById("hp1_cs_label").textContent = "Cs (nF)";
-        document.getElementById("hp1_cl_label").textContent = "Cl (nF)";
-        document.getElementById("hp2_cs_label").textContent = "Cs (nF)";
-        document.getElementById("hp2_cl_label").textContent = "Cl (nF)";
-        document.getElementById("lp1_cs_label").textContent = "Cs (nF)";
-        document.getElementById("lp1_cl_label").textContent = "Cl (nF)";
-        document.getElementById("lp2_cs_label").textContent = "Cs (nF)";
-        document.getElementById("lp2_cl_label").textContent = "Cl (nF)";
-        document.getElementById("bp1_cs_label").textContent = "Cs (nF)";
-        document.getElementById("bp1_cl_label").textContent = "Cl (nF)";
-        document.getElementById("bp2_cs_label").textContent = "Cs (nF)";
-        document.getElementById("bp2_cl_label").textContent = "Cl (nF)";
-        document.getElementById("bp3_cs_label").textContent = "Cs (nF)";
-        document.getElementById("bp3_cl_label").textContent = "Cl (nF)";
-        document.getElementById("bp4_cs_label").textContent = "Cs (nF)";
-        document.getElementById("bp4_cl_label").textContent = "Cl (nF)";
-      } else if (result.c  == "pico") {
-        document.getElementById("hplc_c_label").textContent = "C (pF)";
-        document.getElementById("lpcl_c_label").textContent = "C (pF)";
-        document.getElementById("hpcl_c_label").textContent = "C (pF)";
-        document.getElementById("lplc_c_label").textContent = "C (pF)";
-        document.getElementById("hptee_cs_label").textContent = "Cs (pF)";
-        document.getElementById("hptee_cl_label").textContent = "Cl (pF)";
-        document.getElementById("lptee_c_label").textContent = "C (pF)";
-        document.getElementById("lppi_cs_label").textContent = "Cs (pF)";
-        document.getElementById("lppi_cl_label").textContent = "Cl (pF)";
-        document.getElementById("hppi_c_label").textContent = "C (pF)";
-        document.getElementById("hp1_cs_label").textContent = "Cs (pF)";
-        document.getElementById("hp1_cl_label").textContent = "Cl (pF)";
-        document.getElementById("hp2_cs_label").textContent = "Cs (pF)";
-        document.getElementById("hp2_cl_label").textContent = "Cl (pF)";
-        document.getElementById("lp1_cs_label").textContent = "Cs (pF)";
-        document.getElementById("lp1_cl_label").textContent = "Cl (pF)";
-        document.getElementById("lp2_cs_label").textContent = "Cs (pF)";
-        document.getElementById("lp2_cl_label").textContent = "Cl (pF)";
-        document.getElementById("bp1_cs_label").textContent = "Cs (pF)";
-        document.getElementById("bp1_cl_label").textContent = "Cl (pF)";
-        document.getElementById("bp2_cs_label").textContent = "Cs (pF)";
-        document.getElementById("bp2_cl_label").textContent = "Cl (pF)";
-        document.getElementById("bp3_cs_label").textContent = "Cs (pF)";
-        document.getElementById("bp3_cl_label").textContent = "Cl (pF)";
-        document.getElementById("bp4_cs_label").textContent = "Cs (pF)";
-        document.getElementById("bp4_cl_label").textContent = "Cl (pF)";
-      } else {
-        document.getElementById("hplc_c_label").textContent = "C (fF)";
-        document.getElementById("lpcl_c_label").textContent = "C (fF)";
-        document.getElementById("hpcl_c_label").textContent = "C (fF)";
-        document.getElementById("lplc_c_label").textContent = "C (fF)";
-        document.getElementById("hptee_cs_label").textContent = "Cs (fF)";
-        document.getElementById("hptee_cl_label").textContent = "Cl (fF)";
-        document.getElementById("lptee_c_label").textContent = "C (fF)";
-        document.getElementById("lppi_cs_label").textContent = "Cs (fF)";
-        document.getElementById("lppi_cl_label").textContent = "Cl (fF)";
-        document.getElementById("hppi_c_label").textContent = "C (fF)";
-        document.getElementById("hp1_cs_label").textContent = "Cs (fF)";
-        document.getElementById("hp1_cl_label").textContent = "Cl (fF)";
-        document.getElementById("hp2_cs_label").textContent = "Cs (fF)";
-        document.getElementById("hp2_cl_label").textContent = "Cl (fF)";
-        document.getElementById("lp1_cs_label").textContent = "Cs (fF)";
-        document.getElementById("lp1_cl_label").textContent = "Cl (fF)";
-        document.getElementById("lp2_cs_label").textContent = "Cs (fF)";
-        document.getElementById("lp2_cl_label").textContent = "Cl (fF)";
-        document.getElementById("bp1_cs_label").textContent = "Cs (fF)";
-        document.getElementById("bp1_cl_label").textContent = "Cl (fF)";
-        document.getElementById("bp2_cs_label").textContent = "Cs (fF)";
-        document.getElementById("bp2_cl_label").textContent = "Cl (fF)";
-        document.getElementById("bp3_cs_label").textContent = "Cs (fF)";
-        document.getElementById("bp3_cl_label").textContent = "Cl (fF)";
-        document.getElementById("bp4_cs_label").textContent = "Cs (fF)";
-        document.getElementById("bp4_cl_label").textContent = "Cl (fF)";
-      }
+    var prefix
+    if (result.c == "milli") {
+        prefix = "m"
+    } else if (result.c  == "micro") {
+        prefix = "μ";
+    } else if (result.c  == "nano") {
+        prefix = "n"
+    } else if (result.c == "pico") {
+        prefix = "p"
+    } else if (result.c  == "femto") {
+        prefix = "f"
+    }
 
-      if (result.l == "milli") {
-        document.getElementById("hplc_l_label").textContent = "L (mH)";
-        document.getElementById("lpcl_l_label").textContent = "L (mH)";
-        document.getElementById("hpcl_l_label").textContent = "L (mH)";
-        document.getElementById("lplc_l_label").textContent = "L (mH)";
-        document.getElementById("hptee_l_label").textContent = "L (mH)";
-        document.getElementById("lptee_ls_label").textContent = "Ls (mH)";
-        document.getElementById("lptee_ll_label").textContent = "Ll (mH)";
-        document.getElementById("lppi_l_label").textContent = "L (mH)";
-        document.getElementById("hppi_ls_label").textContent = "Ls (mH)";
-        document.getElementById("hppi_ll_label").textContent = "Ll (mH)";
-        document.getElementById("hp1_ls_label").textContent = "Ls (mH)";
-        document.getElementById("hp1_ll_label").textContent = "Ll (mH)";
-        document.getElementById("hp2_ls_label").textContent = "Ls (mH)";
-        document.getElementById("hp2_ll_label").textContent = "Ll (mH)";
-        document.getElementById("lp1_ls_label").textContent = "Ls (mH)";
-        document.getElementById("lp1_ll_label").textContent = "Ll (mH)";
-        document.getElementById("lp2_ls_label").textContent = "Ls (mH)";
-        document.getElementById("lp2_ll_label").textContent = "Ll (mH)";
-        document.getElementById("bp1_ls_label").textContent = "Ls (mH)";
-        document.getElementById("bp1_ll_label").textContent = "Ll (mH)";
-        document.getElementById("bp2_ls_label").textContent = "Ls (mH)";
-        document.getElementById("bp2_ll_label").textContent = "Ll (mH)";
-        document.getElementById("bp3_ls_label").textContent = "Ls (mH)";
-        document.getElementById("bp3_ll_label").textContent = "Ll (mH)";
-        document.getElementById("bp4_ls_label").textContent = "Ls (mH)";
-        document.getElementById("bp4_ll_label").textContent = "Ll (mH)";
-      } else if (result.l  == "micro") {
-        document.getElementById("hplc_l_label").textContent = "L (uH)";
-        document.getElementById("lpcl_l_label").textContent = "L (uH)";
-        document.getElementById("hpcl_l_label").textContent = "L (uH)";
-        document.getElementById("lplc_l_label").textContent = "L (uH)";
-        document.getElementById("hptee_l_label").textContent = "L (uH)";
-        document.getElementById("lptee_ls_label").textContent = "Ls (uH)";
-        document.getElementById("lptee_ll_label").textContent = "Ll (uH)";
-        document.getElementById("lppi_l_label").textContent = "L (uH)";
-        document.getElementById("hppi_ls_label").textContent = "Ls (uH)";
-        document.getElementById("hppi_ll_label").textContent = "Ll (uH)";
-        document.getElementById("hp1_ls_label").textContent = "Ls (uH)";
-        document.getElementById("hp1_ll_label").textContent = "Ll (uH)";
-        document.getElementById("hp2_ls_label").textContent = "Ls (uH)";
-        document.getElementById("hp2_ll_label").textContent = "Ll (uH)";
-        document.getElementById("lp1_ls_label").textContent = "Ls (uH)";
-        document.getElementById("lp1_ll_label").textContent = "Ll (uH)";
-        document.getElementById("lp2_ls_label").textContent = "Ls (uH)";
-        document.getElementById("lp2_ll_label").textContent = "Ll (uH)";
-        document.getElementById("bp1_ls_label").textContent = "Ls (uH)";
-        document.getElementById("bp1_ll_label").textContent = "Ll (uH)";
-        document.getElementById("bp2_ls_label").textContent = "Ls (uH)";
-        document.getElementById("bp2_ll_label").textContent = "Ll (uH)";
-        document.getElementById("bp3_ls_label").textContent = "Ls (uH)";
-        document.getElementById("bp3_ll_label").textContent = "Ll (uH)";
-        document.getElementById("bp4_ls_label").textContent = "Ls (uH)";
-        document.getElementById("bp4_ll_label").textContent = "Ll (uH)";
-      } else if (result.l  == "nano") {
-        document.getElementById("hplc_l_label").textContent = "L (nH)";
-        document.getElementById("lpcl_l_label").textContent = "L (nH)";
-        document.getElementById("hpcl_l_label").textContent = "L (nH)";
-        document.getElementById("lplc_l_label").textContent = "L (nH)";
-        document.getElementById("hptee_l_label").textContent = "L (nH)";
-        document.getElementById("lptee_ls_label").textContent = "Ls (nH)";
-        document.getElementById("lptee_ll_label").textContent = "Ll (nH)";
-        document.getElementById("lppi_l_label").textContent = "L (nH)";
-        document.getElementById("hppi_ls_label").textContent = "Ls (nH)";
-        document.getElementById("hppi_ll_label").textContent = "Ll (nH)";
-        document.getElementById("hp1_ls_label").textContent = "Ls (nH)";
-        document.getElementById("hp1_ll_label").textContent = "Ll (nH)";
-        document.getElementById("hp2_ls_label").textContent = "Ls (nH)";
-        document.getElementById("hp2_ll_label").textContent = "Ll (nH)";
-        document.getElementById("lp1_ls_label").textContent = "Ls (nH)";
-        document.getElementById("lp1_ll_label").textContent = "Ll (nH)";
-        document.getElementById("lp2_ls_label").textContent = "Ls (nH)";
-        document.getElementById("lp2_ll_label").textContent = "Ll (nH)";
-        document.getElementById("bp1_ls_label").textContent = "Ls (nH)";
-        document.getElementById("bp1_ll_label").textContent = "Ll (nH)";
-        document.getElementById("bp2_ls_label").textContent = "Ls (nH)";
-        document.getElementById("bp2_ll_label").textContent = "Ll (nH)";
-        document.getElementById("bp3_ls_label").textContent = "Ls (nH)";
-        document.getElementById("bp3_ll_label").textContent = "Ll (nH)";
-        document.getElementById("bp4_ls_label").textContent = "Ls (nH)";
-        document.getElementById("bp4_ll_label").textContent = "Ll (nH)";
-      } else if (result.l  == "femto") {
-        document.getElementById("hplc_l_label").textContent = "L (fH)";
-        document.getElementById("lpcl_l_label").textContent = "L (fH)";
-        document.getElementById("hpcl_l_label").textContent = "L (fH)";
-        document.getElementById("lplc_l_label").textContent = "L (fH)";
-        document.getElementById("hptee_l_label").textContent = "L (fH)";
-        document.getElementById("lptee_ls_label").textContent = "Ls (fH)";
-        document.getElementById("lptee_ll_label").textContent = "Ll (fH)";
-        document.getElementById("lppi_l_label").textContent = "L (fH)";
-        document.getElementById("hppi_ls_label").textContent = "Ls (fH)";
-        document.getElementById("hppi_ll_label").textContent = "Ll (fH)";
-        document.getElementById("hp1_ls_label").textContent = "Ls (fH)";
-        document.getElementById("hp1_ll_label").textContent = "Ll (fH)";
-        document.getElementById("hp2_ls_label").textContent = "Ls (fH)";
-        document.getElementById("hp2_ll_label").textContent = "Ll (fH)";
-        document.getElementById("lp1_ls_label").textContent = "Ls (fH)";
-        document.getElementById("lp1_ll_label").textContent = "Ll (fH)";
-        document.getElementById("lp2_ls_label").textContent = "Ls (fH)";
-        document.getElementById("lp2_ll_label").textContent = "Ll (fH)";
-        document.getElementById("bp1_ls_label").textContent = "Ls (fH)";
-        document.getElementById("bp1_ll_label").textContent = "Ll (fH)";
-        document.getElementById("bp2_ls_label").textContent = "Ls (fH)";
-        document.getElementById("bp2_ll_label").textContent = "Ll (fH)";
-        document.getElementById("bp3_ls_label").textContent = "Ls (fH)";
-        document.getElementById("bp3_ll_label").textContent = "Ll (fH)";
-        document.getElementById("bp4_ls_label").textContent = "Ls (fH)";
-        document.getElementById("bp4_ll_label").textContent = "Ll (fH)";
-      } else {
-        document.getElementById("hplc_l_label").textContent = "L (pH)";
-        document.getElementById("lpcl_l_label").textContent = "L (pH)";
-        document.getElementById("hpcl_l_label").textContent = "L (pH)";
-        document.getElementById("lplc_l_label").textContent = "L (pH)";
-        document.getElementById("hptee_l_label").textContent = "L (pH)";
-        document.getElementById("lptee_ls_label").textContent = "Ls (pH)";
-        document.getElementById("lptee_ll_label").textContent = "Ll (pH)";
-        document.getElementById("lppi_l_label").textContent = "L (pH)";
-        document.getElementById("hppi_ls_label").textContent = "Ls (pH)";
-        document.getElementById("hppi_ll_label").textContent = "Ll (pH)";
-        document.getElementById("hp1_ls_label").textContent = "Ls (pH)";
-        document.getElementById("hp1_ll_label").textContent = "Ll (pH)";
-        document.getElementById("hp2_ls_label").textContent = "Ls (pH)";
-        document.getElementById("hp2_ll_label").textContent = "Ll (pH)";
-        document.getElementById("lp1_ls_label").textContent = "Ls (pH)";
-        document.getElementById("lp1_ll_label").textContent = "Ll (pH)";
-        document.getElementById("lp2_ls_label").textContent = "Ls (pH)";
-        document.getElementById("lp2_ll_label").textContent = "Ll (pH)";
-        document.getElementById("bp1_ls_label").textContent = "Ls (pH)";
-        document.getElementById("bp1_ll_label").textContent = "Ll (pH)";
-        document.getElementById("bp2_ls_label").textContent = "Ls (pH)";
-        document.getElementById("bp2_ll_label").textContent = "Ll (pH)";
-        document.getElementById("bp3_ls_label").textContent = "Ls (pH)";
-        document.getElementById("bp3_ll_label").textContent = "Ll (pH)";
-        document.getElementById("bp4_ls_label").textContent = "Ls (pH)";
-        document.getElementById("bp4_ll_label").textContent = "Ll (pH)";
-      }
-    
-      update_imp()
+    cLabel.forEach(e => {
+        e.innerHTML = prefix + "F"
+    })
+    lLabel.forEach(e => {
+        e.innerHTML = prefix + "H"
+    })
+
+    update_imp()
 }
 
 function HP1 () {
@@ -1494,19 +1190,6 @@ function displayResults() {
 }
 
 function setCircuit() {
-    // const sig_digits = document.getElementById("sig_digits").value
-    // const imp_unit = document.getElementById("imp_unit").value
-    // const f_unit = document.getElementById("f_unit").value
-    // const c_unit = document.getElementById("c_unit").value
-    // const l_unit = document.getElementById("l_unit").value
-    // const src_ld_unit = document.getElementById("src_ld_unit").value
-    // const q = document.getElementById("q").value
-    // const zo = document.getElementById("zo").value
-    // const freq = unscale(document.getElementById("freq").value, f_unit)
-    // const w = 2 * Math.PI * freq
-    // const zs = scale_ld(document.getElementById("rs").value, document.getElementById("xs").value, zo, w, imp_unit, src_ld_unit)
-    // const zl = scale_ld(document.getElementById("rl").value, document.getElementById("xl").value, zo, w, imp_unit, src_ld_unit)
-
     Tee_LP_Orig()
     Tee_HP_Orig()
     Pi_LP_Orig()
@@ -1541,7 +1224,6 @@ function setCircuit() {
     }
 
     displayResults()
-
 }
 
 window.setCircuit = setCircuit
