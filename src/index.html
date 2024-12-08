@@ -8,6 +8,8 @@
     <link rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
     <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script defer src="./assets/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src='/main.js'></script>
   </head>
 
   <body class="bg-body-tertiary">
@@ -32,7 +34,7 @@
     </svg>
 
     <div
-      class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
+      class="dropdown position-absolute bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
       <button
         class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center"
         id="bd-theme"
@@ -89,8 +91,7 @@
             <div class="col-3">
               <div class="input-group mb-2">
                 <span class="input-group-text inputGroupmw">Conversion</span>
-                <select class="form-select" id="imp_unit"
-                  onchange="change_imp()" autocomplete="off">
+                <select class="form-select" id="mode_unit" autocomplete="off">
                   <option value="se">Single-Ended</option>
                   <option value="diff" selected>Differential</option>
                 </select>
@@ -100,8 +101,7 @@
               <div class="input-group mb-2">
                 <span class="input-group-text inputGroupmw">Frequency
                   Unit</span>
-                <select class="form-select" id="f_unit"
-                  onchange="change_unit()" autocomplete="off">
+                <select class="form-select" id="freq_unit" autocomplete="off">
                   <option value="tera">THz</option>
                   <option value="giga" selected>GHz</option>
                   <option value="mega">MHz</option>
@@ -112,8 +112,7 @@
             <div class="col-2">
               <div class="input-group mb-2">
                 <span class="input-group-text inputGroupmw">Cap</span>
-                <select class="form-select" id="c_unit"
-                  onchange="change_unit()" autocomplete="off">
+                <select class="form-select" id="cap_unit" autocomplete="off">
                   <option value="milli">m</option>
                   <option value="micro">μ</option>
                   <option value="nano">n</option>
@@ -125,8 +124,7 @@
             <div class="col-2">
               <div class="input-group mb-2">
                 <span class="input-group-text inputGroupmw">Ind</span>
-                <select class="form-select" id="l_unit"
-                  onchange="change_unit()" autocomplete="off">
+                <select class="form-select" id="ind_unit" autocomplete="off">
                   <option value="milli">m</option>
                   <option value="micro">μ</option>
                   <option value="nano">n</option>
@@ -138,12 +136,11 @@
             <div class="col-2">
               <div class="input-group mb-2">
                 <span class="input-group-text inputGroupmw">Format</span>
-                <select class="form-select" id="src_ld_unit"
-                  onchange="change_imp()" autocomplete="off">
-                  <option value="imp" selected>Z</option>
-                  <option value="adm">Y</option>
-                  <option value="ma">Γ Mag/Ang</option>
-                  <option value="ri">Γ Re/Im</option>
+                <select class="form-select" id="imp_unit" autocomplete="off">
+                  <option value="zri" selected>Z Re/Im</option>
+                  <option value="yri">Y Re/Im</option>
+                  <option value="gma">Γ Mag/Ang</option>
+                  <option value="gri">Γ Re/Im</option>
                   <option value="rc">RC</option>
                 </select>
               </div>
@@ -156,8 +153,7 @@
               <div class="input-group mb-2">
                 <span class="input-group-text inputGroupmw">Frequency</span>
                 <input type="number" value="275" id="freq"
-                  class="form-control text-center" onchange="update_imp()"
-                  autocomplete="off">
+                  class="form-control text-center" autocomplete="off">
               </div>
             </div>
 
@@ -165,8 +161,7 @@
               <div class="input-group mb-2">
                 <span class="input-group-text inputGroupmw">Z₀</span>
                 <input type="number" value="100" id="z0"
-                  class="form-control text-center" onchange="update_imp()"
-                  autocomplete="off">
+                  class="form-control text-center" autocomplete="off">
               </div>
             </div>
 
@@ -174,8 +169,7 @@
               <div class="input-group mb-2">
                 <span class="input-group-text inputGroupmw">Q</span>
                 <input type="number" value="2" id="q"
-                  class="form-control text-center" onchange="update_imp()"
-                  autocomplete="off">
+                  class="form-control text-center" autocomplete="off">
               </div>
             </div>
 
@@ -183,8 +177,7 @@
               <div class="input-group mb-2">
                 <span class="input-group-text inputGroupmw">Digits</span>
                 <input type="number" value="2" id="sig_digits"
-                  class="form-control text-center" onchange="update_imp()"
-                  autocomplete="off">
+                  class="form-control text-center" autocomplete="off">
               </div>
             </div>
           </div>
@@ -197,13 +190,11 @@
                 <div class="input-group">
                   <span class="input-group-text inputGroupmw"
                     id="zs_label">Z</span>
-                  <input type="number" value="0" id="rs"
-                    class="form-control text-center" onchange="update_imp()"
-                    autocomplete="off">
+                  <input type="number" value="100" id="rs"
+                    class="form-control text-center" autocomplete="off">
                   <span class="input-group-text" id="rs_label">+</span>
                   <input type="number" value="0" id="xs"
-                    class="form-control text-center" onchange="update_imp()"
-                    autocomplete="off">
+                    class="form-control text-center" autocomplete="off">
                   <span class="input-group-text" id="xs_label">jΩ</span>
                 </div>
               </div>
@@ -217,13 +208,11 @@
                 <div class="input-group">
                   <span class="input-group-text inputGroupmw"
                     id="zl_label">Z</span>
-                  <input type="number" value="0" id="rl"
-                    class="form-control text-center" onchange="update_imp()"
-                    autocomplete="off">
+                  <input type="number" value="100" id="rl"
+                    class="form-control text-center" autocomplete="off">
                   <span class="input-group-text" id="rl_label">+</span>
                   <input type="number" value="0" id="xl"
-                    class="form-control text-center" onchange="update_imp()"
-                    autocomplete="off">
+                    class="form-control text-center" autocomplete="off">
                   <span class="input-group-text" id="xl_label">jΩ</span>
                 </div>
               </div>
@@ -233,7 +222,7 @@
           <div class="row m-5 mt-4 justify-content-center">
             <div class="col">
               <button type="button" class="btn btn-secondary"
-                onclick="update_imp()">Calculate</button>
+                id="calc">Calculate</button>
             </div>
           </div>
 
@@ -271,8 +260,6 @@
                                 id="hplc_l_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="l_label">pH</span>
                             </div>
                           </div>
                           <div class="row m-2">
@@ -282,8 +269,6 @@
                                 id="hplc_c_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="c_label">fF</span>
                             </div>
                           </div>
                           <div class="row m-2">
@@ -308,8 +293,6 @@
                                 id="lpcl_c_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="c_label">fF</span>
                             </div>
                           </div>
                           <div class="row m-2">
@@ -319,8 +302,6 @@
                                 id="lpcl_l_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="l_label">pH</span>
                             </div>
                           </div>
                           <div class="row m-2">
@@ -345,8 +326,6 @@
                                 id="hpcl_c_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="c_label">fF</span>
                             </div>
                           </div>
                           <div class="row m-2">
@@ -356,8 +335,6 @@
                                 id="hpcl_l_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="l_label">pH</span>
                             </div>
                           </div>
                           <div class="row m-2">
@@ -382,8 +359,6 @@
                                 id="lplc_l_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="l_label">pH</span>
                             </div>
                           </div>
                           <div class="row m-2">
@@ -393,8 +368,6 @@
                                 id="lplc_c_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="c_label">fF</span>
                             </div>
                           </div>
                           <div class="row m-2">
@@ -436,8 +409,6 @@
                                 id="teehp_cs_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="c_label">fF</span>
                             </div>
                           </div>
                           <div class="row m-2">
@@ -447,8 +418,6 @@
                                 id="teehp_l_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="l_label">pH</span>
                             </div>
                           </div>
                           <div class="row m-2">
@@ -458,8 +427,6 @@
                                 id="teehp_cl_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="c_label">fF</span>
                             </div>
                           </div>
                           <div class="row m-2">
@@ -483,8 +450,6 @@
                                 id="teelp_ls_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="l_label">pH</span>
                             </div>
                           </div>
                           <div class="row m-2">
@@ -494,8 +459,6 @@
                                 id="teelp_c_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="c_label">fF</span>
                             </div>
                           </div>
                           <div class="row m-2">
@@ -505,8 +468,6 @@
                                 id="teelp_ll_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="l_label">pH</span>
                             </div>
                           </div>
                           <div class="row m-2">
@@ -530,8 +491,6 @@
                                 id="pilp_cs_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="c_label">fF</span>
                             </div>
                           </div>
                           <div class="row m-2">
@@ -541,8 +500,6 @@
                                 id="pilp_l_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="l_label">pH</span>
                             </div>
                           </div>
                           <div class="row m-2">
@@ -552,8 +509,6 @@
                                 id="pilp_cl_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="c_label">fF</span>
                             </div>
                           </div>
                           <div class="row m-2">
@@ -577,8 +532,6 @@
                                 id="pihp_ls_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="l_label">pH</span>
                             </div>
                           </div>
                           <div class="row m-2">
@@ -588,8 +541,6 @@
                                 id="pihp_c_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="c_label">fF</span>
                             </div>
                           </div>
                           <div class="row m-2">
@@ -599,8 +550,6 @@
                                 id="pihp_ll_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="l_label">pH</span>
                             </div>
                           </div>
                           <div class="row m-2">
@@ -643,8 +592,6 @@
                                 id="hp1_ls_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="l_label">pH</span>
                             </div>
                           </div>
                           <div class="row m-2">
@@ -654,8 +601,6 @@
                                 id="hp1_cs_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="c_label">fF</span>
                             </div>
                           </div>
                           <div class="row m-2">
@@ -665,8 +610,6 @@
                                 id="hp1_ll_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="l_label">pH</span>
                             </div>
                           </div>
                           <div class="row m-2">
@@ -676,8 +619,6 @@
                                 id="hp1_cl_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="c_label">fF</span>
                             </div>
                           </div>
                         </div>
@@ -692,8 +633,6 @@
                                 id="hp2_cs_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="c_label">fF</span>
                             </div>
                           </div>
                           <div class="row m-2">
@@ -703,8 +642,6 @@
                                 id="hp2_ls_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="l_label">pH</span>
                             </div>
                           </div>
                           <div class="row m-2">
@@ -714,8 +651,6 @@
                                 id="hp2_cl_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="c_label">fF</span>
                             </div>
                           </div>
                           <div class="row m-2">
@@ -725,8 +660,6 @@
                                 id="hp2_ll_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="l_label">pH</span>
                             </div>
                           </div>
                         </div>
@@ -741,8 +674,6 @@
                                 id="lp1_cs_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="c_label">fF</span>
                             </div>
                           </div>
                           <div class="row m-2">
@@ -752,8 +683,6 @@
                                 id="lp1_ls_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="l_label">pH</span>
                             </div>
                           </div>
                           <div class="row m-2">
@@ -763,8 +692,6 @@
                                 id="lp1_cl_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="c_label">fF</span>
                             </div>
                           </div>
                           <div class="row m-2">
@@ -774,8 +701,6 @@
                                 id="lp1_ll_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="l_label">pH</span>
                             </div>
                           </div>
                         </div>
@@ -790,8 +715,6 @@
                                 id="lp2_ls_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="l_label">pH</span>
                             </div>
                           </div>
                           <div class="row m-2">
@@ -801,8 +724,6 @@
                                 id="lp2_cs_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="c_label">fF</span>
                             </div>
                           </div>
                           <div class="row m-2">
@@ -812,8 +733,6 @@
                                 id="lp2_ll_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="l_label">pH</span>
                             </div>
                           </div>
                           <div class="row m-2">
@@ -823,8 +742,6 @@
                                 id="lp2_cl_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="c_label">fF</span>
                             </div>
                           </div>
                         </div>
@@ -858,8 +775,6 @@
                                 id="bp1_ls_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="l_label">pH</span>
                             </div>
                           </div>
                           <div class="row m-2">
@@ -869,8 +784,6 @@
                                 id="bp1_cs_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="c_label">fF</span>
                             </div>
                           </div>
                           <div class="row m-2">
@@ -880,8 +793,6 @@
                                 id="bp1_cl_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="c_label">fF</span>
                             </div>
                           </div>
                           <div class="row m-2">
@@ -891,8 +802,6 @@
                                 id="bp1_ll_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="l_label">pH</span>
                             </div>
                           </div>
                         </div>
@@ -907,8 +816,6 @@
                                 id="bp2_ls_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="l_label">pH</span>
                             </div>
                           </div>
                           <div class="row m-2">
@@ -918,8 +825,6 @@
                                 id="bp2_cs_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="c_label">fF</span>
                             </div>
                           </div>
                           <div class="row m-2">
@@ -929,8 +834,6 @@
                                 id="bp2_cl_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="c_label">fF</span>
                             </div>
                           </div>
                           <div class="row m-2">
@@ -940,8 +843,6 @@
                                 id="bp2_ll_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="l_label">pH</span>
                             </div>
                           </div>
                         </div>
@@ -956,8 +857,6 @@
                                 id="bp3_cs_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="c_label">fF</span>
                             </div>
                           </div>
                           <div class="row m-2">
@@ -967,8 +866,6 @@
                                 id="bp3_ls_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="l_label">pH</span>
                             </div>
                           </div>
                           <div class="row m-2">
@@ -978,8 +875,6 @@
                                 id="bp3_ll_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="l_label">pH</span>
                             </div>
                           </div>
                           <div class="row m-2">
@@ -989,8 +884,6 @@
                                 id="bp3_cl_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="c_label">fF</span>
                             </div>
                           </div>
                         </div>
@@ -1005,8 +898,6 @@
                                 id="bp4_cs_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="c_label">fF</span>
                             </div>
                           </div>
                           <div class="row m-2">
@@ -1016,8 +907,6 @@
                                 id="bp4_ls_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="l_label">pH</span>
                             </div>
                           </div>
                           <div class="row m-2">
@@ -1027,8 +916,6 @@
                                 id="bp4_ll_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="l_label">pH</span>
                             </div>
                           </div>
                           <div class="row m-2">
@@ -1038,8 +925,6 @@
                                 id="bp4_cl_val">
                                 <div class="text_box"></div>
                               </output>
-                              <span class="input-group-text"
-                                id="c_label">fF</span>
                             </div>
                           </div>
                         </div>
@@ -1056,11 +941,5 @@
 
       </div>
     </section>
-
-    <script src="./assets/dist/js/bootstrap.bundle.min.js"></script>
-
-    <script src="./cheatsheet.js"></script>
-    <script type="module" src='./network.js'></script>
-    <script src='./validation.js'></script>
   </body>
 </html>
