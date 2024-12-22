@@ -13,13 +13,1030 @@
   </head>
 
   <body class="bg-body-tertiary">
+    <div class="container-fluid text-center position-relative">
+      <form name="input">
+
+        <!-- Units -->
+        <div class="row mt-5 justify-content-center">
+          <div class="col-3">
+            <div class="input-group mb-2">
+              <span class="input-group-text inputGroupmw">Mode</span>
+              <select class="form-select" id="mode_unit" autocomplete="off">
+                <option value="se">Single-Ended</option>
+                <option value="diff" selected>Differential</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="input-group mb-2">
+              <span class="input-group-text inputGroupmw">Format</span>
+              <select class="form-select" id="imp_unit" autocomplete="off">
+                <option value="zri" selected>Z Re/Im</option>
+                <option value="yri">Y Re/Im</option>
+                <option value="gma">Γ Mag/Ang</option>
+                <option value="gri">Γ Re/Im</option>
+                <option value="rc">RC</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="input-group mb-2">
+              <span class="input-group-text inputGroupmw">Cap</span>
+              <select class="form-select" id="cap_unit" autocomplete="off">
+                <option value="milli">m</option>
+                <option value="micro">μ</option>
+                <option value="nano">n</option>
+                <option value="pico">p</option>
+                <option value="femto" selected>f</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="input-group mb-2">
+              <span class="input-group-text inputGroupmw">Ind</span>
+              <select class="form-select" id="ind_unit" autocomplete="off">
+                <option value="milli">m</option>
+                <option value="micro">μ</option>
+                <option value="nano">n</option>
+                <option value="pico" selected>p</option>
+                <option value="femto">f</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Digits, Frequency & Q -->
+        <div class="row mt-3 justify-content-center">
+          <div class="col-4">
+            <div class="input-group mb-2">
+              <span class="input-group-text inputGroupmw">Frequency</span>
+              <input type="number" value="275" id="freq"
+                class="form-control text-center" autocomplete="off">
+              <select class="form-select" id="freq_unit" autocomplete="off">
+                <option value="tera">THz</option>
+                <option value="giga" selected>GHz</option>
+                <option value="mega">MHz</option>
+                <option value="kilo">kHz</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-2">
+            <div class="input-group mb-2">
+              <span class="input-group-text inputGroupmw">Z₀</span>
+              <input type="number" value="100" id="z0"
+                class="form-control text-center" autocomplete="off">
+            </div>
+          </div>
+
+          <div class="col-2">
+            <div class="input-group mb-2">
+              <span class="input-group-text inputGroupmw">Qnet</span>
+              <input type="number" value="2" id="q_net"
+                class="form-control text-center" autocomplete="off">
+            </div>
+          </div>
+
+          <div class="col-2">
+            <div class="input-group mb-2">
+              <span class="input-group-text inputGroupmw">Q</span>
+              <input type="number" value="20" id="q"
+                class="form-control text-center" autocomplete="off">
+            </div>
+          </div>
+
+          <div class="col-2">
+            <div class="input-group mb-2">
+              <span class="input-group-text inputGroupmw">Digits</span>
+              <input type="number" value="2" id="sig_digits"
+                class="form-control text-center" autocomplete="off">
+            </div>
+          </div>
+        </div>
+
+        <!-- Impedances -->
+        <div class="row mt-4 justify-content-center">
+          <div class="col-4 text-center">
+            <h5>Source</h5>
+            <div class="row mt-2">
+              <div class="input-group">
+                <span class="input-group-text inputGroupmw"
+                  id="zs_label">Z</span>
+                <input type="number" value="100" id="rs"
+                  class="form-control text-center" autocomplete="off">
+                <span class="input-group-text" id="rs_label">+</span>
+                <input type="number" value="0" id="xs"
+                  class="form-control text-center" autocomplete="off">
+                <span class="input-group-text" id="xs_label">jΩ</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="text_box mt-1" id="zs"></div>
+            </div>
+          </div>
+
+          <div class="col-1"></div>
+
+          <div class="col-4">
+            <h5>Load</h5>
+            <div class="row mt-2">
+              <div class="input-group">
+                <span class="input-group-text inputGroupmw"
+                  id="zl_label">Z</span>
+                <input type="number" value="100" id="rl"
+                  class="form-control text-center" autocomplete="off">
+                <span class="input-group-text" id="rl_label">+</span>
+                <input type="number" value="0" id="xl"
+                  class="form-control text-center" autocomplete="off">
+                <span class="input-group-text" id="xl_label">jΩ</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="text_box mt-1" id="zl"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Calculate Button -->
+        <div class="row m-5 mt-4 justify-content-center">
+          <div class="col">
+            <button type="button" class="btn btn-secondary"
+              id="calc">Calculate</button>
+          </div>
+        </div>
+
+      </form>
+
+      <!-- Results -->
+      <div class="bd-example-snippet bd-code-snippet row">
+        <div class="bd-example m-0 border-0">
+
+          <div class="accordion" id="accordionExample">
+
+            <!-- L Matches -->
+            <div class="accordion-item">
+              <h4 class="accordion-header">
+                <button class="accordion-button collapsed" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                  aria-expanded="false" aria-controls="collapseOne">
+                  L Matches
+                </button>
+              </h4>
+              <div id="collapseOne"
+                class="accordion-collapse collapse"
+                data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <div class="row m-3">
+                    <div class="col">
+                      <p class="is-size-4 has-text-primary-100">Shunt L -
+                        Series
+                        C</p>
+                      <img src="images/lc_hp_bg.png">
+                      <div class="row m-2 mt-4">
+                        <div class="input-group">
+                          <span class="input-group-text">L</span>
+                          <output class="form-control text-center"
+                            id="hplc_l_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">C</span>
+                          <output class="form-control text-center"
+                            id="hplc_c_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">Q</span>
+                          <output class="form-control text-center"
+                            id="hplc_q_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <p class="is-size-4 has-text-primary-100">Shunt C -
+                        Series
+                        L</p>
+                      <img src="images/cl_lp_bg.png">
+                      <div class="row m-2 mt-4">
+                        <div class="input-group">
+                          <span class="input-group-text">C</span>
+                          <output class="form-control text-center"
+                            id="lpcl_c_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">L</span>
+                          <output class="form-control text-center"
+                            id="lpcl_l_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">Q</span>
+                          <output class="form-control text-center"
+                            id="lpcl_q_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <p class="is-size-4 has-text-primary-100">Series C -
+                        Shunt
+                        L</p>
+                      <img src="images/cl_hp_bg.png">
+                      <div class="row m-2 mt-4">
+                        <div class="input-group">
+                          <span class="input-group-text">C</span>
+                          <output class="form-control text-center"
+                            id="hpcl_c_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">L</span>
+                          <output class="form-control text-center"
+                            id="hpcl_l_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">Q</span>
+                          <output class="form-control text-center"
+                            id="hpcl_q_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <p class="is-size-4 has-text-primary-100">Series L -
+                        Shunt
+                        C</p>
+                      <img src="images/lc_lp_bg.png">
+                      <div class="row m-2 mt-4">
+                        <div class="input-group">
+                          <span class="input-group-text">L</span>
+                          <output class="form-control text-center"
+                            id="lplc_l_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">C</span>
+                          <output class="form-control text-center"
+                            id="lplc_c_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">Q</span>
+                          <output class="form-control text-center"
+                            id="lplc_q_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- L Matches w/Q -->
+            <div class="accordion-item">
+              <h4 class="accordion-header">
+                <button class="accordion-button" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                  aria-expanded="true" aria-controls="collapseTwo">
+                  L Matches with Q
+                </button>
+              </h4>
+              <div id="collapseTwo"
+                class="accordion-collapse collapse show"
+                data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <div class="row m-3">
+                    <div class="col">
+                      <p class="is-size-4 has-text-primary-100">Shunt RL -
+                        Series
+                        C</p>
+                      <img src="images/lc_hp_bg.png">
+                      <div class="row m-2 mt-4">
+                        <div class="input-group">
+                          <span class="input-group-text">L</span>
+                          <output class="form-control text-center"
+                            id="hplcq_l_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">C</span>
+                          <output class="form-control text-center"
+                            id="hplcq_c_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">Q</span>
+                          <output class="form-control text-center"
+                            id="hplcq_q_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <p class="is-size-4 has-text-primary-100">Shunt C -
+                        Series
+                        RL</p>
+                      <img src="images/cl_lp_bg.png">
+                      <div class="row m-2 mt-4">
+                        <div class="input-group">
+                          <span class="input-group-text">C</span>
+                          <output class="form-control text-center"
+                            id="lpclq_c_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">L</span>
+                          <output class="form-control text-center"
+                            id="lpclq_l_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">Q</span>
+                          <output class="form-control text-center"
+                            id="lpclq_q_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <p class="is-size-4 has-text-primary-100">Series C -
+                        Shunt
+                        RL</p>
+                      <img src="images/cl_hp_bg.png">
+                      <div class="row m-2 mt-4">
+                        <div class="input-group">
+                          <span class="input-group-text">C</span>
+                          <output class="form-control text-center"
+                            id="hpclq_c_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">L</span>
+                          <output class="form-control text-center"
+                            id="hpclq_l_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">Q</span>
+                          <output class="form-control text-center"
+                            id="hpclq_q_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <p class="is-size-4 has-text-primary-100">Series RL -
+                        Shunt
+                        C</p>
+                      <img src="images/lc_lp_bg.png">
+                      <div class="row m-2 mt-4">
+                        <div class="input-group">
+                          <span class="input-group-text">L</span>
+                          <output class="form-control text-center"
+                            id="lplcq_l_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">C</span>
+                          <output class="form-control text-center"
+                            id="lplcq_c_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">Q</span>
+                          <output class="form-control text-center"
+                            id="lplcq_q_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pi & Tee Matches -->
+            <div class="accordion-item">
+              <h4 class="accordion-header">
+                <button class="accordion-button collapsed" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                  aria-expanded="false" aria-controls="collapseThree">
+                  Pi & Tee Matches
+                </button>
+              </h4>
+              <div id="collapseThree" class="accordion-collapse collapse"
+                data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <div class="row m-3">
+                    <div class="col">
+                      <p class="is-size-4 has-text-primary-100">High Pass
+                        Tee</p>
+                      <img src="images/tee_hp_bg.png">
+                      <div class="row m-2 mt-4">
+                        <div class="input-group">
+                          <span class="input-group-text">CS</span>
+                          <output class="form-control text-center"
+                            id="teehp_cs_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">L</span>
+                          <output class="form-control text-center"
+                            id="teehp_l_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">CL</span>
+                          <output class="form-control text-center"
+                            id="teehp_cl_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">Q</span>
+                          <output class="form-control text-center"
+                            id="teehp_q_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <p class="is-size-4 has-text-primary-100">Low Pass
+                        Tee</p>
+                      <img src="images/tee_lp_bg.png">
+                      <div class="row m-2 mt-4">
+                        <div class="input-group">
+                          <span class="input-group-text">LS</span>
+                          <output class="form-control text-center"
+                            id="teelp_ls_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">C</span>
+                          <output class="form-control text-center"
+                            id="teelp_c_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">LL</span>
+                          <output class="form-control text-center"
+                            id="teelp_ll_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">Q</span>
+                          <output class="form-control text-center"
+                            id="teelp_q_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <p class="is-size-4 has-text-primary-100">Low Pass
+                        Pi</p>
+                      <img src="images/pi_lp_bg.png">
+                      <div class="row m-2 mt-4">
+                        <div class="input-group">
+                          <span class="input-group-text">CS</span>
+                          <output class="form-control text-center"
+                            id="pilp_cs_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">L</span>
+                          <output class="form-control text-center"
+                            id="pilp_l_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">CL</span>
+                          <output class="form-control text-center"
+                            id="pilp_cl_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">Q</span>
+                          <output class="form-control text-center"
+                            id="pilp_q_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <p class="is-size-4 has-text-primary-100">High Pass
+                        Pi</p>
+                      <img src="images/pi_hp_bg.png">
+                      <div class="row m-2 mt-4">
+                        <div class="input-group">
+                          <span class="input-group-text">LS</span>
+                          <output class="form-control text-center"
+                            id="pihp_ls_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">C</span>
+                          <output class="form-control text-center"
+                            id="pihp_c_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">LL</span>
+                          <output class="form-control text-center"
+                            id="pihp_ll_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">Q</span>
+                          <output class="form-control text-center"
+                            id="pihp_q_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- LL Matches -->
+            <div class="accordion-item">
+              <h4 class="accordion-header">
+                <button class="accordion-button collapsed" type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseFour" aria-expanded="false"
+                  aria-controls="collapseFour">
+                  LL Matches
+                </button>
+              </h4>
+              <div id="collapseFour" class="accordion-collapse collapse"
+                data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <div class="row m-3">
+                    <div class="col">
+                      <p class="is-size-4 has-text-primary-100">High Pass LL
+                        Hi-Low</p>
+                      <img src="images/hp1ll_bg.png">
+                      <div class="row m-2 mt-4">
+                        <div class="input-group">
+                          <span class="input-group-text">LS</span>
+                          <output class="form-control text-center"
+                            id="hp1_ls_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">CS</span>
+                          <output class="form-control text-center"
+                            id="hp1_cs_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">LL</span>
+                          <output class="form-control text-center"
+                            id="hp1_ll_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">CL</span>
+                          <output class="form-control text-center"
+                            id="hp1_cl_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <p class="is-size-4 has-text-primary-100">High Pass LL
+                        Low-Hi</p>
+                      <img src="images/hp2ll_bg.png">
+                      <div class="row m-2 mt-4">
+                        <div class="input-group">
+                          <span class="input-group-text">CS</span>
+                          <output class="form-control text-center"
+                            id="hp2_cs_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">LS</span>
+                          <output class="form-control text-center"
+                            id="hp2_ls_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">CL</span>
+                          <output class="form-control text-center"
+                            id="hp2_cl_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">LL</span>
+                          <output class="form-control text-center"
+                            id="hp2_ll_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <p class="is-size-4 has-text-primary-100">Low Pass LL
+                        Hi-Low</p>
+                      <img src="images/lp1ll_bg.png">
+                      <div class="row m-2 mt-4">
+                        <div class="input-group">
+                          <span class="input-group-text">CS</span>
+                          <output class="form-control text-center"
+                            id="lp1_cs_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">LS</span>
+                          <output class="form-control text-center"
+                            id="lp1_ls_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">CL</span>
+                          <output class="form-control text-center"
+                            id="lp1_cl_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">LL</span>
+                          <output class="form-control text-center"
+                            id="lp1_ll_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <p class="is-size-4 has-text-primary-100">Low Pass LL
+                        Low-Hi</p>
+                      <img src="images/lp2ll_bg.png">
+                      <div class="row m-2 mt-4">
+                        <div class="input-group">
+                          <span class="input-group-text">LS</span>
+                          <output class="form-control text-center"
+                            id="lp2_ls_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">CS</span>
+                          <output class="form-control text-center"
+                            id="lp2_cs_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">LL</span>
+                          <output class="form-control text-center"
+                            id="lp2_ll_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">CL</span>
+                          <output class="form-control text-center"
+                            id="lp2_cl_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Band Pass Matches -->
+            <div class="accordion-item">
+              <h4 class="accordion-header">
+                <button class="accordion-button collapsed" type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseFive" aria-expanded="false"
+                  aria-controls="collapseFive">
+                  Band Pass Matches
+                </button>
+              </h4>
+              <div id="collapseFive" class="accordion-collapse collapse"
+                data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <div class="row m-3">
+                    <div class="col">
+                      <p class="is-size-4 has-text-primary-100">Band Pass CC
+                        Hi-Low</p>
+                      <img src="images/bp1ll_bg.png">
+                      <div class="row m-2 mt-4">
+                        <div class="input-group">
+                          <span class="input-group-text">LS</span>
+                          <output class="form-control text-center"
+                            id="bp1_ls_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">CS</span>
+                          <output class="form-control text-center"
+                            id="bp1_cs_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">CL</span>
+                          <output class="form-control text-center"
+                            id="bp1_cl_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">LL</span>
+                          <output class="form-control text-center"
+                            id="bp1_ll_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <p class="is-size-4 has-text-primary-100">Band Pass CC
+                        Low-Hi</p>
+                      <img src="images/bp2ll_bg.png">
+                      <div class="row m-2 mt-4">
+                        <div class="input-group">
+                          <span class="input-group-text">LS</span>
+                          <output class="form-control text-center"
+                            id="bp2_ls_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">CS</span>
+                          <output class="form-control text-center"
+                            id="bp2_cs_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">CL</span>
+                          <output class="form-control text-center"
+                            id="bp2_cl_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">LL</span>
+                          <output class="form-control text-center"
+                            id="bp2_ll_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <p class="is-size-4 has-text-primary-100">Band Pass LL
+                        Hi-Low</p>
+                      <img src="images/bp3ll_bg.png">
+                      <div class="row m-2 mt-4">
+                        <div class="input-group">
+                          <span class="input-group-text">CS</span>
+                          <output class="form-control text-center"
+                            id="bp3_cs_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">LS</span>
+                          <output class="form-control text-center"
+                            id="bp3_ls_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">LL</span>
+                          <output class="form-control text-center"
+                            id="bp3_ll_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">CL</span>
+                          <output class="form-control text-center"
+                            id="bp3_cl_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <p class="is-size-4 has-text-primary-100">Band Pass LL
+                        Low-Hi</p>
+                      <img src="images/bp4ll_bg.png">
+                      <div class="row m-2 mt-4">
+                        <div class="input-group">
+                          <span class="input-group-text">CS</span>
+                          <output class="form-control text-center"
+                            id="bp4_cs_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">LS</span>
+                          <output class="form-control text-center"
+                            id="bp4_ls_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">LL</span>
+                          <output class="form-control text-center"
+                            id="bp4_ll_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                      <div class="row m-2">
+                        <div class="input-group">
+                          <span class="input-group-text">CL</span>
+                          <output class="form-control text-center"
+                            id="bp4_cl_val">
+                            <div class="text_box"></div>
+                          </output>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Color Mode Dropdown -->
     <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
       <symbol id="check2" viewBox="0 0 16 16">
         <path
           d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
       </symbol>
       <symbol id="circle-half" viewBox="0 0 16 16">
-        <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z" />
+        <path
+          d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z" />
       </symbol>
       <symbol id="moon-stars-fill" viewBox="0 0 16 16">
         <path
@@ -32,9 +1049,8 @@
           d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z" />
       </symbol>
     </svg>
-
     <div
-      class="dropdown position-absolute bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
+      class="dropdown sticky-top position-absolute bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
       <button
         class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center"
         id="bd-theme"
@@ -49,7 +1065,8 @@
       <ul class="dropdown-menu dropdown-menu-end shadow"
         aria-labelledby="bd-theme-text">
         <li>
-          <button type="button" class="dropdown-item d-flex align-items-center"
+          <button type="button"
+            class="dropdown-item d-flex align-items-center"
             data-bs-theme-value="light" aria-pressed="false">
             <svg class="bi me-2 opacity-50" width="1em" height="1em"><use
                 href="#sun-fill"></use></svg>
@@ -59,7 +1076,8 @@
           </button>
         </li>
         <li>
-          <button type="button" class="dropdown-item d-flex align-items-center"
+          <button type="button"
+            class="dropdown-item d-flex align-items-center"
             data-bs-theme-value="dark" aria-pressed="false">
             <svg class="bi me-2 opacity-50" width="1em" height="1em"><use
                 href="#moon-stars-fill"></use></svg>
@@ -81,865 +1099,5 @@
         </li>
       </ul>
     </div>
-
-    <section class="section">
-      <div class="container-fluid text-center">
-        <form name="input">
-
-          <!-- Units -->
-          <div class="row mt-5 justify-content-center">
-            <div class="col-3">
-              <div class="input-group mb-2">
-                <span class="input-group-text inputGroupmw">Conversion</span>
-                <select class="form-select" id="mode_unit" autocomplete="off">
-                  <option value="se">Single-Ended</option>
-                  <option value="diff" selected>Differential</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-3">
-              <div class="input-group mb-2">
-                <span class="input-group-text inputGroupmw">Frequency
-                  Unit</span>
-                <select class="form-select" id="freq_unit" autocomplete="off">
-                  <option value="tera">THz</option>
-                  <option value="giga" selected>GHz</option>
-                  <option value="mega">MHz</option>
-                  <option value="kilo">kHz</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-2">
-              <div class="input-group mb-2">
-                <span class="input-group-text inputGroupmw">Cap</span>
-                <select class="form-select" id="cap_unit" autocomplete="off">
-                  <option value="milli">m</option>
-                  <option value="micro">μ</option>
-                  <option value="nano">n</option>
-                  <option value="pico">p</option>
-                  <option value="femto" selected>f</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-2">
-              <div class="input-group mb-2">
-                <span class="input-group-text inputGroupmw">Ind</span>
-                <select class="form-select" id="ind_unit" autocomplete="off">
-                  <option value="milli">m</option>
-                  <option value="micro">μ</option>
-                  <option value="nano">n</option>
-                  <option value="pico" selected>p</option>
-                  <option value="femto">f</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-2">
-              <div class="input-group mb-2">
-                <span class="input-group-text inputGroupmw">Format</span>
-                <select class="form-select" id="imp_unit" autocomplete="off">
-                  <option value="zri" selected>Z Re/Im</option>
-                  <option value="yri">Y Re/Im</option>
-                  <option value="gma">Γ Mag/Ang</option>
-                  <option value="gri">Γ Re/Im</option>
-                  <option value="rc">RC</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          <!-- Digits, Frequency & Q -->
-          <div class="row mt-3 justify-content-center">
-            <div class="col-3">
-              <div class="input-group mb-2">
-                <span class="input-group-text inputGroupmw">Frequency</span>
-                <input type="number" value="275" id="freq"
-                  class="form-control text-center" autocomplete="off">
-              </div>
-            </div>
-
-            <div class="col-2">
-              <div class="input-group mb-2">
-                <span class="input-group-text inputGroupmw">Z₀</span>
-                <input type="number" value="100" id="z0"
-                  class="form-control text-center" autocomplete="off">
-              </div>
-            </div>
-
-            <div class="col-2">
-              <div class="input-group mb-2">
-                <span class="input-group-text inputGroupmw">Q</span>
-                <input type="number" value="2" id="q"
-                  class="form-control text-center" autocomplete="off">
-              </div>
-            </div>
-
-            <div class="col-2">
-              <div class="input-group mb-2">
-                <span class="input-group-text inputGroupmw">Digits</span>
-                <input type="number" value="2" id="sig_digits"
-                  class="form-control text-center" autocomplete="off">
-              </div>
-            </div>
-          </div>
-
-          <!-- Source Impedance -->
-          <div class="row mt-4 justify-content-center">
-            <div class="col-4 text-center">
-              <h5>Source</h5>
-              <div class="row mt-2">
-                <div class="input-group">
-                  <span class="input-group-text inputGroupmw"
-                    id="zs_label">Z</span>
-                  <input type="number" value="100" id="rs"
-                    class="form-control text-center" autocomplete="off">
-                  <span class="input-group-text" id="rs_label">+</span>
-                  <input type="number" value="0" id="xs"
-                    class="form-control text-center" autocomplete="off">
-                  <span class="input-group-text" id="xs_label">jΩ</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-1"></div>
-
-            <div class="col-4">
-              <h5>Load</h5>
-              <div class="row mt-2">
-                <div class="input-group">
-                  <span class="input-group-text inputGroupmw"
-                    id="zl_label">Z</span>
-                  <input type="number" value="100" id="rl"
-                    class="form-control text-center" autocomplete="off">
-                  <span class="input-group-text" id="rl_label">+</span>
-                  <input type="number" value="0" id="xl"
-                    class="form-control text-center" autocomplete="off">
-                  <span class="input-group-text" id="xl_label">jΩ</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row m-5 mt-4 justify-content-center">
-            <div class="col">
-              <button type="button" class="btn btn-secondary"
-                id="calc">Calculate</button>
-            </div>
-          </div>
-
-        </form>
-
-        <div>
-          <div class="bd-example-snippet bd-code-snippet">
-            <div class="bd-example m-0 border-0">
-
-              <div class="accordion" id="accordionExample">
-
-                <!-- L Matches -->
-                <div class="accordion-item">
-                  <h4 class="accordion-header">
-                    <button class="accordion-button" type="button"
-                      data-bs-toggle="collapse" data-bs-target="#collapseOne"
-                      aria-expanded="true" aria-controls="collapseOne">
-                      L Matches
-                    </button>
-                  </h4>
-                  <div id="collapseOne"
-                    class="accordion-collapse collapse show"
-                    data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                      <div class="row m-3">
-                        <div class="col">
-                          <p class="is-size-4 has-text-primary-100">Shunt L -
-                            Series
-                            C</p>
-                          <img src="images/lc_hp_bg.png">
-                          <div class="row m-2 mt-4">
-                            <div class="input-group">
-                              <span class="input-group-text">L</span>
-                              <output class="form-control text-center"
-                                id="hplc_l_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                          <div class="row m-2">
-                            <div class="input-group">
-                              <span class="input-group-text">C</span>
-                              <output class="form-control text-center"
-                                id="hplc_c_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                          <div class="row m-2">
-                            <div class="input-group">
-                              <span class="input-group-text">Q</span>
-                              <output class="form-control text-center"
-                                id="hplc_q_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col">
-                          <p class="is-size-4 has-text-primary-100">Shunt C -
-                            Series
-                            L</p>
-                          <img src="images/cl_lp_bg.png">
-                          <div class="row m-2 mt-4">
-                            <div class="input-group">
-                              <span class="input-group-text">C</span>
-                              <output class="form-control text-center"
-                                id="lpcl_c_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                          <div class="row m-2">
-                            <div class="input-group">
-                              <span class="input-group-text">L</span>
-                              <output class="form-control text-center"
-                                id="lpcl_l_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                          <div class="row m-2">
-                            <div class="input-group">
-                              <span class="input-group-text">Q</span>
-                              <output class="form-control text-center"
-                                id="lpcl_q_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col">
-                          <p class="is-size-4 has-text-primary-100">Series C -
-                            Shunt
-                            L</p>
-                          <img src="images/cl_hp_bg.png">
-                          <div class="row m-2 mt-4">
-                            <div class="input-group">
-                              <span class="input-group-text">C</span>
-                              <output class="form-control text-center"
-                                id="hpcl_c_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                          <div class="row m-2">
-                            <div class="input-group">
-                              <span class="input-group-text">L</span>
-                              <output class="form-control text-center"
-                                id="hpcl_l_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                          <div class="row m-2">
-                            <div class="input-group">
-                              <span class="input-group-text">Q</span>
-                              <output class="form-control text-center"
-                                id="hpcl_q_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col">
-                          <p class="is-size-4 has-text-primary-100">Series L -
-                            Shunt
-                            C</p>
-                          <img src="images/lc_lp_bg.png">
-                          <div class="row m-2 mt-4">
-                            <div class="input-group">
-                              <span class="input-group-text">L</span>
-                              <output class="form-control text-center"
-                                id="lplc_l_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                          <div class="row m-2">
-                            <div class="input-group">
-                              <span class="input-group-text">C</span>
-                              <output class="form-control text-center"
-                                id="lplc_c_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                          <div class="row m-2">
-                            <div class="input-group">
-                              <span class="input-group-text">Q</span>
-                              <output class="form-control text-center"
-                                id="lplc_q_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Pi & Tee Matches -->
-                <div class="accordion-item">
-                  <h4 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button"
-                      data-bs-toggle="collapse" data-bs-target="#collapseTwo"
-                      aria-expanded="false" aria-controls="collapseTwo">
-                      Pi & Tee Matches
-                    </button>
-                  </h4>
-                  <div id="collapseTwo" class="accordion-collapse collapse"
-                    data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                      <div class="row m-3">
-                        <div class="col">
-                          <p class="is-size-4 has-text-primary-100">High Pass
-                            Tee</p>
-                          <img src="images/tee_hp_bg.png">
-                          <div class="row m-2 mt-4">
-                            <div class="input-group">
-                              <span class="input-group-text">CS</span>
-                              <output class="form-control text-center"
-                                id="teehp_cs_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                          <div class="row m-2">
-                            <div class="input-group">
-                              <span class="input-group-text">L</span>
-                              <output class="form-control text-center"
-                                id="teehp_l_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                          <div class="row m-2">
-                            <div class="input-group">
-                              <span class="input-group-text">CL</span>
-                              <output class="form-control text-center"
-                                id="teehp_cl_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                          <div class="row m-2">
-                            <div class="input-group">
-                              <span class="input-group-text">Q</span>
-                              <output class="form-control text-center"
-                                id="teehp_q_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col">
-                          <p class="is-size-4 has-text-primary-100">Low Pass
-                            Tee</p>
-                          <img src="images/tee_lp_bg.png">
-                          <div class="row m-2 mt-4">
-                            <div class="input-group">
-                              <span class="input-group-text">LS</span>
-                              <output class="form-control text-center"
-                                id="teelp_ls_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                          <div class="row m-2">
-                            <div class="input-group">
-                              <span class="input-group-text">C</span>
-                              <output class="form-control text-center"
-                                id="teelp_c_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                          <div class="row m-2">
-                            <div class="input-group">
-                              <span class="input-group-text">LL</span>
-                              <output class="form-control text-center"
-                                id="teelp_ll_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                          <div class="row m-2">
-                            <div class="input-group">
-                              <span class="input-group-text">Q</span>
-                              <output class="form-control text-center"
-                                id="teelp_q_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col">
-                          <p class="is-size-4 has-text-primary-100">Low Pass
-                            Pi</p>
-                          <img src="images/pi_lp_bg.png">
-                          <div class="row m-2 mt-4">
-                            <div class="input-group">
-                              <span class="input-group-text">CS</span>
-                              <output class="form-control text-center"
-                                id="pilp_cs_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                          <div class="row m-2">
-                            <div class="input-group">
-                              <span class="input-group-text">L</span>
-                              <output class="form-control text-center"
-                                id="pilp_l_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                          <div class="row m-2">
-                            <div class="input-group">
-                              <span class="input-group-text">CL</span>
-                              <output class="form-control text-center"
-                                id="pilp_cl_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                          <div class="row m-2">
-                            <div class="input-group">
-                              <span class="input-group-text">Q</span>
-                              <output class="form-control text-center"
-                                id="pilp_q_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col">
-                          <p class="is-size-4 has-text-primary-100">High Pass
-                            Pi</p>
-                          <img src="images/pi_hp_bg.png">
-                          <div class="row m-2 mt-4">
-                            <div class="input-group">
-                              <span class="input-group-text">LS</span>
-                              <output class="form-control text-center"
-                                id="pihp_ls_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                          <div class="row m-2">
-                            <div class="input-group">
-                              <span class="input-group-text">C</span>
-                              <output class="form-control text-center"
-                                id="pihp_c_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                          <div class="row m-2">
-                            <div class="input-group">
-                              <span class="input-group-text">LL</span>
-                              <output class="form-control text-center"
-                                id="pihp_ll_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                          <div class="row m-2">
-                            <div class="input-group">
-                              <span class="input-group-text">Q</span>
-                              <output class="form-control text-center"
-                                id="pihp_q_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- LL Matches -->
-                <div class="accordion-item">
-                  <h4 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button"
-                      data-bs-toggle="collapse"
-                      data-bs-target="#collapseThree" aria-expanded="false"
-                      aria-controls="collapseThree">
-                      LL Matches
-                    </button>
-                  </h4>
-                  <div id="collapseThree" class="accordion-collapse collapse"
-                    data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                      <div class="row m-3">
-                        <div class="col">
-                          <p class="is-size-4 has-text-primary-100">High Pass LL
-                            Hi-Low</p>
-                          <img src="images/hp1ll_bg.png">
-                          <div class="row m-2 mt-4">
-                            <div class="input-group">
-                              <span class="input-group-text">LS</span>
-                              <output class="form-control text-center"
-                                id="hp1_ls_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                          <div class="row m-2">
-                            <div class="input-group">
-                              <span class="input-group-text">CS</span>
-                              <output class="form-control text-center"
-                                id="hp1_cs_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                          <div class="row m-2">
-                            <div class="input-group">
-                              <span class="input-group-text">LL</span>
-                              <output class="form-control text-center"
-                                id="hp1_ll_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                          <div class="row m-2">
-                            <div class="input-group">
-                              <span class="input-group-text">CL</span>
-                              <output class="form-control text-center"
-                                id="hp1_cl_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col">
-                          <p class="is-size-4 has-text-primary-100">High Pass LL
-                            Low-Hi</p>
-                          <img src="images/hp2ll_bg.png">
-                          <div class="row m-2 mt-4">
-                            <div class="input-group">
-                              <span class="input-group-text">CS</span>
-                              <output class="form-control text-center"
-                                id="hp2_cs_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                          <div class="row m-2">
-                            <div class="input-group">
-                              <span class="input-group-text">LS</span>
-                              <output class="form-control text-center"
-                                id="hp2_ls_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                          <div class="row m-2">
-                            <div class="input-group">
-                              <span class="input-group-text">CL</span>
-                              <output class="form-control text-center"
-                                id="hp2_cl_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                          <div class="row m-2">
-                            <div class="input-group">
-                              <span class="input-group-text">LL</span>
-                              <output class="form-control text-center"
-                                id="hp2_ll_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col">
-                          <p class="is-size-4 has-text-primary-100">Low Pass LL
-                            Hi-Low</p>
-                          <img src="images/lp1ll_bg.png">
-                          <div class="row m-2 mt-4">
-                            <div class="input-group">
-                              <span class="input-group-text">CS</span>
-                              <output class="form-control text-center"
-                                id="lp1_cs_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                          <div class="row m-2">
-                            <div class="input-group">
-                              <span class="input-group-text">LS</span>
-                              <output class="form-control text-center"
-                                id="lp1_ls_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                          <div class="row m-2">
-                            <div class="input-group">
-                              <span class="input-group-text">CL</span>
-                              <output class="form-control text-center"
-                                id="lp1_cl_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                          <div class="row m-2">
-                            <div class="input-group">
-                              <span class="input-group-text">LL</span>
-                              <output class="form-control text-center"
-                                id="lp1_ll_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col">
-                          <p class="is-size-4 has-text-primary-100">Low Pass LL
-                            Low-Hi</p>
-                          <img src="images/lp2ll_bg.png">
-                          <div class="row m-2 mt-4">
-                            <div class="input-group">
-                              <span class="input-group-text">LS</span>
-                              <output class="form-control text-center"
-                                id="lp2_ls_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                          <div class="row m-2">
-                            <div class="input-group">
-                              <span class="input-group-text">CS</span>
-                              <output class="form-control text-center"
-                                id="lp2_cs_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                          <div class="row m-2">
-                            <div class="input-group">
-                              <span class="input-group-text">LL</span>
-                              <output class="form-control text-center"
-                                id="lp2_ll_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                          <div class="row m-2">
-                            <div class="input-group">
-                              <span class="input-group-text">CL</span>
-                              <output class="form-control text-center"
-                                id="lp2_cl_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Band Pass Matches -->
-                <div class="accordion-item">
-                  <h4 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button"
-                      data-bs-toggle="collapse"
-                      data-bs-target="#collapseFour" aria-expanded="false"
-                      aria-controls="collapseFour">
-                      Band Pass Matches
-                    </button>
-                  </h4>
-                  <div id="collapseFour" class="accordion-collapse collapse"
-                    data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                      <div class="row m-3">
-                        <div class="col">
-                          <p class="is-size-4 has-text-primary-100">Band Pass CC
-                            Hi-Low</p>
-                          <img src="images/bp1ll_bg.png">
-                          <div class="row m-2 mt-4">
-                            <div class="input-group">
-                              <span class="input-group-text">LS</span>
-                              <output class="form-control text-center"
-                                id="bp1_ls_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                          <div class="row m-2">
-                            <div class="input-group">
-                              <span class="input-group-text">CS</span>
-                              <output class="form-control text-center"
-                                id="bp1_cs_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                          <div class="row m-2">
-                            <div class="input-group">
-                              <span class="input-group-text">CL</span>
-                              <output class="form-control text-center"
-                                id="bp1_cl_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                          <div class="row m-2">
-                            <div class="input-group">
-                              <span class="input-group-text">LL</span>
-                              <output class="form-control text-center"
-                                id="bp1_ll_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col">
-                          <p class="is-size-4 has-text-primary-100">Band Pass CC
-                            Low-Hi</p>
-                          <img src="images/bp2ll_bg.png">
-                          <div class="row m-2 mt-4">
-                            <div class="input-group">
-                              <span class="input-group-text">LS</span>
-                              <output class="form-control text-center"
-                                id="bp2_ls_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                          <div class="row m-2">
-                            <div class="input-group">
-                              <span class="input-group-text">CS</span>
-                              <output class="form-control text-center"
-                                id="bp2_cs_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                          <div class="row m-2">
-                            <div class="input-group">
-                              <span class="input-group-text">CL</span>
-                              <output class="form-control text-center"
-                                id="bp2_cl_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                          <div class="row m-2">
-                            <div class="input-group">
-                              <span class="input-group-text">LL</span>
-                              <output class="form-control text-center"
-                                id="bp2_ll_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col">
-                          <p class="is-size-4 has-text-primary-100">Band Pass LL
-                            Hi-Low</p>
-                          <img src="images/bp3ll_bg.png">
-                          <div class="row m-2 mt-4">
-                            <div class="input-group">
-                              <span class="input-group-text">CS</span>
-                              <output class="form-control text-center"
-                                id="bp3_cs_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                          <div class="row m-2">
-                            <div class="input-group">
-                              <span class="input-group-text">LS</span>
-                              <output class="form-control text-center"
-                                id="bp3_ls_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                          <div class="row m-2">
-                            <div class="input-group">
-                              <span class="input-group-text">LL</span>
-                              <output class="form-control text-center"
-                                id="bp3_ll_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                          <div class="row m-2">
-                            <div class="input-group">
-                              <span class="input-group-text">CL</span>
-                              <output class="form-control text-center"
-                                id="bp3_cl_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col">
-                          <p class="is-size-4 has-text-primary-100">Band Pass LL
-                            Low-Hi</p>
-                          <img src="images/bp4ll_bg.png">
-                          <div class="row m-2 mt-4">
-                            <div class="input-group">
-                              <span class="input-group-text">CS</span>
-                              <output class="form-control text-center"
-                                id="bp4_cs_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                          <div class="row m-2">
-                            <div class="input-group">
-                              <span class="input-group-text">LS</span>
-                              <output class="form-control text-center"
-                                id="bp4_ls_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                          <div class="row m-2">
-                            <div class="input-group">
-                              <span class="input-group-text">LL</span>
-                              <output class="form-control text-center"
-                                id="bp4_ll_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                          <div class="row m-2">
-                            <div class="input-group">
-                              <span class="input-group-text">CL</span>
-                              <output class="form-control text-center"
-                                id="bp4_cl_val">
-                                <div class="text_box"></div>
-                              </output>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
   </body>
 </html>

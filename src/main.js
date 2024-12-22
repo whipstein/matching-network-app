@@ -1,6 +1,5 @@
 const { invoke } = window.__TAURI__.core;
 
-let sig_digits = 2;
 
 function digits(val, sd) {
     return val.toFixed(sd);
@@ -31,7 +30,7 @@ function print_val(val, unit, suffix, sd) {
 }
 
 function calc_nets() {
-    invoke("calc_networks", { rs: rs, xs: xs, rl: rl, xl: xl, imp: imp_unit, q: q, z0: z0, freq: freq, fscale: freq_unit, cscale: cap_unit, lscale: ind_unit, zscale: mode_unit })
+    invoke("calc_networks", { rs: rs, xs: xs, rl: rl, xl: xl, imp: imp_unit, q_net: q_net, q: q, z0: z0, freq: freq, f_scale: freq_unit, c_scale: cap_unit, l_scale: ind_unit, z_scale: mode_unit })
     .then((result) => {
         document.getElementById("hp1_cs_val").innerHTML = "<div class=\"text_box\">" + print_val(result.hp1.cs, cap_unit, "F", sd) + "</div>";
         document.getElementById("hp1_cl_val").innerHTML = "<div class=\"text_box\">" + print_val(result.hp1.cl, cap_unit, "F", sd) + "</div>";
@@ -113,17 +112,37 @@ function calc_nets() {
         document.getElementById("hplc_l_val").innerHTML = "<div class=\"text_box\">" + print_val(result.hp_ell_lc.l, ind_unit, "H", sd) + "</div>";
         document.getElementById("hplc_q_val").innerHTML = "<div class=\"text_box\">" + print_val(result.hp_ell_lc.q, "", "", sd) + "</div>";
 
+        document.getElementById("hplcq_c_val").innerHTML = "<div class=\"text_box\">" + print_val(result.hp_ell_lc_w_q.c, cap_unit, "F", sd) + "</div>";
+        document.getElementById("hplcq_l_val").innerHTML = "<div class=\"text_box\">" + print_val(result.hp_ell_lc_w_q.l, ind_unit, "H", sd) + "</div>";
+        document.getElementById("hplcq_q_val").innerHTML = "<div class=\"text_box\">" + print_val(result.hp_ell_lc_w_q.q_net, "", "", sd) + "</div>";
+        console.log("hplcq: " + result.hp_ell_lc_w_q.sol);
+
         document.getElementById("hpcl_c_val").innerHTML = "<div class=\"text_box\">" + print_val(result.hp_ell_cl.c, cap_unit, "F", sd) + "</div>";
         document.getElementById("hpcl_l_val").innerHTML = "<div class=\"text_box\">" + print_val(result.hp_ell_cl.l, ind_unit, "H", sd) + "</div>";
         document.getElementById("hpcl_q_val").innerHTML = "<div class=\"text_box\">" + print_val(result.hp_ell_cl.q, "", "", sd) + "</div>";
+
+        document.getElementById("hpclq_c_val").innerHTML = "<div class=\"text_box\">" + print_val(result.hp_ell_cl_w_q.c, cap_unit, "F", sd) + "</div>";
+        document.getElementById("hpclq_l_val").innerHTML = "<div class=\"text_box\">" + print_val(result.hp_ell_cl_w_q.l, ind_unit, "H", sd) + "</div>";
+        document.getElementById("hpclq_q_val").innerHTML = "<div class=\"text_box\">" + print_val(result.hp_ell_cl_w_q.q_net, "", "", sd) + "</div>";
+        console.log("hpclq: " + result.hp_ell_cl_w_q.sol);
 
         document.getElementById("lplc_c_val").innerHTML = "<div class=\"text_box\">" + print_val(result.lp_ell_lc.c, cap_unit, "F", sd) + "</div>";
         document.getElementById("lplc_l_val").innerHTML = "<div class=\"text_box\">" + print_val(result.lp_ell_lc.l, ind_unit, "H", sd) + "</div>";
         document.getElementById("lplc_q_val").innerHTML = "<div class=\"text_box\">" + print_val(result.lp_ell_lc.q, "", "", sd) + "</div>";
 
+        document.getElementById("lplcq_c_val").innerHTML = "<div class=\"text_box\">" + print_val(result.lp_ell_lc_w_q.c, cap_unit, "F", sd) + "</div>";
+        document.getElementById("lplcq_l_val").innerHTML = "<div class=\"text_box\">" + print_val(result.lp_ell_lc_w_q.l, ind_unit, "H", sd) + "</div>";
+        document.getElementById("lplcq_q_val").innerHTML = "<div class=\"text_box\">" + print_val(result.lp_ell_lc_w_q.q_net, "", "", sd) + "</div>";
+        console.log("lpclq: " + result.lp_ell_cl_w_q.sol);
+
         document.getElementById("lpcl_c_val").innerHTML = "<div class=\"text_box\">" + print_val(result.lp_ell_cl.c, cap_unit, "F", sd) + "</div>";
         document.getElementById("lpcl_l_val").innerHTML = "<div class=\"text_box\">" + print_val(result.lp_ell_cl.l, ind_unit, "H", sd) + "</div>";
         document.getElementById("lpcl_q_val").innerHTML = "<div class=\"text_box\">" + print_val(result.lp_ell_cl.q, "", "", sd) + "</div>";
+
+        document.getElementById("lpclq_c_val").innerHTML = "<div class=\"text_box\">" + print_val(result.lp_ell_cl_w_q.c, cap_unit, "F", sd) + "</div>";
+        document.getElementById("lpclq_l_val").innerHTML = "<div class=\"text_box\">" + print_val(result.lp_ell_cl_w_q.l, ind_unit, "H", sd) + "</div>";
+        document.getElementById("lpclq_q_val").innerHTML = "<div class=\"text_box\">" + print_val(result.lp_ell_cl_w_q.q_net, "", "", sd) + "</div>";
+        console.log("lplcq: " + result.lp_ell_lc_w_q.sol);
     })
     .catch((err) => {
         console.log("ERROR: " + err);
@@ -192,25 +211,39 @@ function calc_nets() {
         document.getElementById("hplc_l_val").innerHTML = txt;
         document.getElementById("hplc_q_val").innerHTML = txt;
 
+        document.getElementById("hplcq_c_val").innerHTML = txt;
+        document.getElementById("hplcq_l_val").innerHTML = txt;
+        document.getElementById("hplcq_q_val").innerHTML = txt;
+
         document.getElementById("hpcl_c_val").innerHTML = txt;
         document.getElementById("hpcl_l_val").innerHTML = txt;
         document.getElementById("hpcl_q_val").innerHTML = txt;
+
+        document.getElementById("hpclq_c_val").innerHTML = txt;
+        document.getElementById("hpclq_l_val").innerHTML = txt;
+        document.getElementById("hpclq_q_val").innerHTML = txt;
 
         document.getElementById("lplc_c_val").innerHTML = txt;
         document.getElementById("lplc_l_val").innerHTML = txt;
         document.getElementById("lplc_q_val").innerHTML = txt;
 
+        document.getElementById("lplcq_c_val").innerHTML = txt;
+        document.getElementById("lplcq_l_val").innerHTML = txt;
+        document.getElementById("lplcq_q_val").innerHTML = txt;
+
         document.getElementById("lpcl_c_val").innerHTML = txt;
         document.getElementById("lpcl_l_val").innerHTML = txt;
         document.getElementById("lpcl_q_val").innerHTML = txt;
+
+        document.getElementById("lpclq_c_val").innerHTML = txt;
+        document.getElementById("lpclq_l_val").innerHTML = txt;
+        document.getElementById("lpclq_q_val").innerHTML = txt;
     });
 }
 
 function change_imp() {
-    console.log("invoke(\"change_impedance\", { src_re: " + rs + ", src_im: " + xs + ", load_re: " + rl + ", load_im: " + xl + ", imp_in: " + imp_unit + ", imp_out: " + impUnitEl.value + ", z0: " + z0 + ", freq: " + freq + ", fscale: " + freq_unit + ", cscale: " + cap_unit + " })");
-    invoke("change_impedance", { rs: rs, xs: xs, rl: rl, xl: xl, imp_in: imp_unit, imp_out: impUnitEl.value, z0: z0, freq: freq, fscale: freq_unit, cscale: cap_unit })
+    invoke("change_impedance", { rs: rs, xs: xs, rl: rl, xl: xl, imp_in: imp_unit, imp_out: impUnitEl.value, z0: z0, freq: freq, f_scale: freq_unit, c_scale: cap_unit })
     .then((result) => {
-        var z_label, r_label, x_label;
         switch (imp_unit) {
             case "zri":
                 z_label = "Z";
@@ -234,7 +267,7 @@ function change_imp() {
                 break;
             case "rc":
                 var unit
-                switch (result.c) {
+                switch (cap_unit) {
                     case "milli":
                         unit = "mF"
                         break;
@@ -257,27 +290,27 @@ function change_imp() {
                 break;
         }
 
-        document.getElementById("zs_label").innerHTML = z_label;
-        document.getElementById("zl_label").innerHTML = z_label;
-        document.getElementById("rs_label").innerHTML = r_label;
-        document.getElementById("xs_label").innerHTML = x_label;
-        document.getElementById("rl_label").innerHTML = r_label;
-        document.getElementById("xl_label").innerHTML = x_label;
+        zsLabelEl.innerHTML = z_label;
+        zlLabelEl.innerHTML = z_label;
+        rsLabelEl.innerHTML = r_label;
+        xsLabelEl.innerHTML = x_label;
+        rlLabelEl.innerHTML = r_label;
+        xlLabelEl.innerHTML = x_label;
 
-        document.getElementById("rs").innerText = print_val(result.src_re, "", "", result.sd);
-        document.getElementById("xs").innerText = print_val(result.src_im, "", "", result.sd);
-        document.getElementById("rl").innerText = print_val(result.load_re, "", "", result.sd);
-        document.getElementById("xl").innerText = print_val(result.load_im, "", "", result.sd);
+        rsEl.innerText = print_val(result.src.re, "", "", result.sd);
+        xsEl.innerText = print_val(result.src.im, "", "", result.sd);
+        rlEl.innerText = print_val(result.load.re, "", "", result.sd);
+        xlEl.innerText = print_val(result.load.im, "", "", result.sd);
 
-        calc_nets()
+        update_imp()
     })
     .catch((err) => {
         console.log("ERROR: " + err);
         var txt = "<div class=\"text_box\">ERROR";
-        document.getElementById("rs").innerText = txt;
-        document.getElementById("xs").innerText = txt;
-        document.getElementById("rl").innerText = txt;
-        document.getElementById("xl").innerText = txt;
+        rsEl.innerText = txt;
+        xsEl.innerText = txt;
+        rlEl.innerText = txt;
+        xlEl.innerText = txt;
     });
 
     imp_unit = impUnitEl.value;
@@ -295,6 +328,7 @@ function change_unit() {
 function update_imp() {
     sd = parseInt(sigDigitsEl.value);
     freq = parseFloat(freqEl.value);
+    q_net = parseFloat(qNetEl.value);
     q = parseFloat(qEl.value);
     z0 = parseFloat(z0El.value);
     rs = parseFloat(rsEl.value);
@@ -302,13 +336,53 @@ function update_imp() {
     rl = parseFloat(rlEl.value);
     xl = parseFloat(xlEl.value);
 
+    rsCalc = rs;
+    xsCalc = xs;
+    rlCalc = rl;
+    xlCalc = xl;
+    if (mode_unit == "diff") {
+        if (imp_unit == "rc") {
+            rsCalc = rs / 2.0;
+            xsCalc = xs * 2.0;
+            rlCalc = rl / 2.0;
+            xlCalc = xl * 2.0;
+        } else if (imp_unit == "yri") {
+            rsCalc = rs * 2.0;
+            xsCalc = xs * 2.0;
+            rlCalc = rl * 2.0;
+            xlCalc = xl * 2.0;
+        } else if (imp_unit == "zri") {
+            rsCalc = rs / 2.0;
+            xsCalc = xs / 2.0;
+            rlCalc = rl / 2.0;
+            xlCalc = xl / 2.0;
+        }
+    }
+
+    if (xs < 0 && !(imp_unit == "gma" || imp_unit == "rc")) {
+        zsEl.innerHTML = print_val(rsCalc, "", "", sd) + " - " + print_val(Math.abs(xsCalc), "", "", sd) + x_label;
+    } else {
+        zsEl.innerHTML = print_val(rsCalc, "", "", sd) + r_label + " " + print_val(xsCalc, "", "", sd) + x_label;
+    }
+    if (xl < 0 && !(imp_unit == "gma" || imp_unit == "rc")) {
+        zlEl.innerHTML = print_val(rlCalc, "", "", sd) + " - " + print_val(Math.abs(xlCalc), "", "", sd) + x_label;
+    } else {
+        zlEl.innerHTML = print_val(rlCalc, "", "", sd) + r_label + " " + print_val(xlCalc, "", "", sd) + x_label;
+    }
+
     calc_nets();
 }
 
-let sigDigitsEl, modeUnitEl, capUnitEl, indUnitEl, freqUnitEl, impUnitEl, z0El, qEl, freqEl, rsLabelEl, rsEl, xsLabelEl, xsEl, rlLabelEl, rlEl, xlLabelEl, xlEl, calcEl;
-let sd, mode_unit, cap_unit, ind_unit, freq_unit, imp_unit, z0, q, freq, rs, xs, rl, xl;
+let sigDigitsEl, modeUnitEl, capUnitEl, indUnitEl, freqUnitEl, impUnitEl, z0El, qNetEl, qEl, freqEl, rsLabelEl, rsEl, xsLabelEl, xsEl, rlLabelEl, rlEl, xlLabelEl, xlEl, calcEl, zsLabelEl, zsEl, zlLabelEl, zlEl;
+let mode_unit, cap_unit, ind_unit, freq_unit, imp_unit, z0, q_net, q, freq, rs, xs, rl, xl, rsCalc, xsCalc, rlCalc, xlCalc;
+let z_label, r_label, x_label;
+let sd = 2;
 
 window.addEventListener("DOMContentLoaded", () => {
+    z_label = "Z";
+    r_label = "+";
+    x_label = "jΩ";
+
     sigDigitsEl = document.getElementById("sig_digits");
     sd = parseInt(sigDigitsEl.value);
     modeUnitEl = document.getElementById("mode_unit");
@@ -323,6 +397,8 @@ window.addEventListener("DOMContentLoaded", () => {
     imp_unit = impUnitEl.value;
     z0El = document.getElementById("z0");
     z0 = parseFloat(z0El.value);
+    qNetEl = document.getElementById("q_net");
+    q_net = parseFloat(qNetEl.value);
     qEl = document.getElementById("q");
     q = parseFloat(qEl.value);
     freqEl = document.getElementById("freq");
@@ -340,6 +416,10 @@ window.addEventListener("DOMContentLoaded", () => {
     xlEl = document.getElementById("xl");
     xl = parseFloat(xlEl.value);
     calcEl = document.getElementById("calc");
+    zsLabelEl = document.getElementById("zs_label");
+    zsEl = document.getElementById("zs");
+    zlLabelEl = document.getElementById("zl_label");
+    zlEl = document.getElementById("zl");
 
     sigDigitsEl.addEventListener("change", (e) => {
         e.preventDefault();
@@ -373,6 +453,11 @@ window.addEventListener("DOMContentLoaded", () => {
     });
 
     z0El.addEventListener("change", (e) => {
+        e.preventDefault();
+        update_imp();
+    });
+
+    qNetEl.addEventListener("change", (e) => {
         e.preventDefault();
         update_imp();
     });
